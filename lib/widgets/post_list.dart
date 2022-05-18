@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../providers/posts.dart';
-import '../models/post.dart';
 import './post_item.dart';
 
 class PostList extends StatelessWidget {
@@ -20,11 +19,7 @@ class PostList extends StatelessWidget {
             : ListView.builder(
                 shrinkWrap: true,
                 itemCount: postsData.items.length,
-                itemBuilder: (ctx, index) => PostItem(
-                  postsData.items[index].text,
-                  postsData.items[index].date,
-                  postsData.items[index].emotions,
-                ),
+                itemBuilder: (ctx, index) => PostItem(postsData.items[index]),
               ),
       ),
     );

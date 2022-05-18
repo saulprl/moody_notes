@@ -10,6 +10,8 @@ class PostOverviewScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: Theme.of(context).colorScheme.primary,
+        elevation: 0.0,
         title: const Text('anx'),
       ),
       body: Column(

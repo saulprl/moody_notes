@@ -13,17 +13,25 @@ class TextArea extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        TextField(
-          controller: _controller,
-          autocorrect: true,
-          decoration: const InputDecoration(
-            label: Text('Type something...'),
+        Container(
+          decoration: BoxDecoration(
+            border: Border.all(
+              color: Theme.of(context).colorScheme.secondary,
+              width: 1.0,
+            ),
           ),
-          enableSuggestions: true,
-          textCapitalization: TextCapitalization.sentences,
-          minLines: 6,
-          maxLines: 10,
-          keyboardType: TextInputType.multiline,
+          child: TextField(
+            controller: _controller,
+            autocorrect: true,
+            decoration: const InputDecoration(
+              label: Text('Type something...'),
+            ),
+            enableSuggestions: true,
+            textCapitalization: TextCapitalization.sentences,
+            minLines: 6,
+            maxLines: 10,
+            keyboardType: TextInputType.multiline,
+          ),
         ),
         const SizedBox(height: 12.0),
         Row(

@@ -4,7 +4,7 @@ class Post {
   final String id;
   final String text;
   final DateTime date;
-  final List<String> emotions;
+  final Map<String, Map<String, List<String>>> emotions;
 
   const Post({
     required this.id,

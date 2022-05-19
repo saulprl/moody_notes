@@ -22,10 +22,11 @@ class TextArea extends StatelessWidget {
           ),
           child: TextField(
             controller: _controller,
-            autocorrect: true,
             decoration: const InputDecoration(
-              label: Text('Type something...'),
+              // label: Text('Escribe algo...'),
+              hintText: 'Escribe algo...',
             ),
+            autocorrect: true,
             enableSuggestions: true,
             textCapitalization: TextCapitalization.sentences,
             minLines: 6,
@@ -38,7 +39,7 @@ class TextArea extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
             ElevatedButton(
-              child: const Text('Post'),
+              child: const Text('Guardar'),
               onPressed: () {
                 Provider.of<Posts>(
                   context,
@@ -48,16 +49,17 @@ class TextArea extends StatelessWidget {
                     id: DateTime.now().toIso8601String(),
                     text: _controller.text,
                     date: DateTime.now(),
-                    emotions: [
-                      'Tristeza',
-                      'Disgusto',
-                      'Felicidad',
-                      'Ira',
-                      'Miedo',
-                    ],
+                    emotions: {
+                      'Felicidad': {},
+                      'Miedo': {
+                        'Inseguro': ['Inferior', 'Pobre'],
+                        'Asustado': ['Espantado', 'Aterrado'],
+                      },
+                    },
                   ),
                 );
                 _controller.text = '';
+                FocusScope.of(context).unfocus();
               },
             ),
           ],

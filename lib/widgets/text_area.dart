@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../screens/basic_emotions_screen.dart';
 import '../providers/posts.dart';
 import '../models/post.dart';
+import 'emotions_list.dart';
 
 class TextArea extends StatelessWidget {
   final _controller = TextEditingController();
@@ -40,24 +42,25 @@ class TextArea extends StatelessWidget {
           children: [
             ElevatedButton(
               child: const Text('Guardar'),
-              onPressed: () {
-                Provider.of<Posts>(
-                  context,
-                  listen: false,
-                ).addPost(
-                  Post(
-                    id: DateTime.now().toIso8601String(),
-                    text: _controller.text,
-                    date: DateTime.now(),
-                    emotions: {
-                      'Felicidad': {},
-                      'Miedo': {
-                        'Inseguro': ['Inferior', 'Pobre'],
-                        'Asustado': ['Espantado', 'Aterrado'],
-                      },
-                    },
-                  ),
-                );
+              onPressed: () async {
+                Navigator.of(context).pushNamed(BasicEmotionsScreen.routeName);
+                // Provider.of<Posts>(
+                //   context,
+                //   listen: false,
+                // ).addPost(
+                //   Post(
+                //     id: DateTime.now().toIso8601String(),
+                //     text: _controller.text,
+                //     date: DateTime.now(),
+                //     emotions: {
+                //       'Felicidad': {},
+                //       'Miedo': {
+                //         'Inseguro': ['Inferior', 'Pobre'],
+                //         'Asustado': ['Espantado', 'Aterrado'],
+                //       },
+                //     },
+                //   ),
+                // );
                 _controller.text = '';
                 FocusScope.of(context).unfocus();
               },

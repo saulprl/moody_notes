@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import './providers/posts.dart';
+import 'screens/basic_emotions_screen.dart';
 import './screens/post_details_screen.dart';
 import './screens/post_overview_screen.dart';
 
@@ -34,6 +35,7 @@ class MyApp extends StatelessWidget {
         home: const PostOverviewScreen(),
         routes: {
           PostDetailsScreen.routeName: (ctx) => const PostDetailsScreen(),
+          BasicEmotionsScreen.routeName: (ctx) => const BasicEmotionsScreen(),
         },
       ),
     );

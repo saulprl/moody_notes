@@ -2,9 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import './providers/posts.dart';
-import 'screens/basic_emotions_screen.dart';
+import './providers/emotions.dart';
 import './screens/post_details_screen.dart';
 import './screens/post_overview_screen.dart';
+import './screens/basic_emotions_screen.dart';
+import './screens/derived_emotions_screen.dart';
+import './screens/specific_emotions_screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -15,8 +18,15 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider(
-      create: (ctx) => Posts(),
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(
+          create: (ctx) => Posts(),
+        ),
+        ChangeNotifierProvider(
+          create: (ctx) => Emotions(),
+        )
+      ],
       child: MaterialApp(
         title: 'anx',
         theme: ThemeData(
@@ -36,6 +46,10 @@ class MyApp extends StatelessWidget {
         routes: {
           PostDetailsScreen.routeName: (ctx) => const PostDetailsScreen(),
           BasicEmotionsScreen.routeName: (ctx) => const BasicEmotionsScreen(),
+          DerivedEmotionsScreen.routeName: (ctx) =>
+              const DerivedEmotionsScreen(),
+          SpecificEmotionsScreen.routeName: (ctx) =>
+              const SpecificEmotionsScreen(),
         },
       ),
     );

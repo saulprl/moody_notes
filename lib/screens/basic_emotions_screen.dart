@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:my_anxiety_app/screens/derived_emotions_screen.dart';
 
 import '../widgets/emotions_list.dart';
 
@@ -12,6 +13,13 @@ class BasicEmotionsScreen extends StatefulWidget {
 }
 
 class _BasicEmotionsScreenState extends State<BasicEmotionsScreen> {
+  void _onTap(String args) {
+    Navigator.of(context).pushNamed(
+      DerivedEmotionsScreen.routeName,
+      arguments: args,
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -22,12 +30,12 @@ class _BasicEmotionsScreenState extends State<BasicEmotionsScreen> {
       body: Padding(
         padding: const EdgeInsets.all(12.0),
         child: Column(
-          children: const [
-            Text(
-              'Escoge al menos una emoción básica que represente esta nota:',
+          children: [
+            const Text(
+              'Escoge al menos una emoción básica que represente esta nota. Puedes presionar el nombre de la emoción para ver sus emociones derivadas.',
             ),
-            SizedBox(height: 12.0),
-            EmotionsList(),
+            const SizedBox(height: 12.0),
+            EmotionsList(onTap: _onTap),
           ],
         ),
       ),

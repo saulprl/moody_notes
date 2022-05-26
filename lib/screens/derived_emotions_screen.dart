@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import './specific_emotions_screen.dart';
-import '../models/emotion.dart';
+import '../providers/emotion.dart';
 import '../providers/emotions.dart';
 import '../widgets/emotions_list.dart';
 

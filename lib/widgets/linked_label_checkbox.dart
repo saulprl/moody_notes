@@ -7,9 +7,9 @@ class LinkedLabelCheckbox extends StatelessWidget {
   final bool value;
   final Color color;
   final ValueChanged<bool> onChanged;
-  void Function(String args)? onTap;
+  final void Function(String args)? onTap;
 
-  LinkedLabelCheckbox({
+  const LinkedLabelCheckbox({
     Key? key,
     required this.label,
     required this.padding,

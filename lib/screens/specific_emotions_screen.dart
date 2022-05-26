@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../widgets/emotions_list.dart';
-import '../models/emotion.dart';
+import '../providers/emotion.dart';
 import '../providers/emotions.dart';
 
 class SpecificEmotionsScreen extends StatefulWidget {
@@ -17,8 +17,7 @@ class SpecificEmotionsScreen extends StatefulWidget {
 class _SpecificEmotionsScreenState extends State<SpecificEmotionsScreen> {
   var _isInit = false;
   late Emotion _parentEmotion;
-  late List<Emotion> _specificEmotions;
-  final List<Emotion> _selectedEmotions = [];
+  late List<Emotion> _selectedEmotions;
 
   @override
   void didChangeDependencies() {
@@ -33,27 +32,9 @@ class _SpecificEmotionsScreenState extends State<SpecificEmotionsScreen> {
           listen: false,
         ).findByName(parentEmotionName);
 
-        _specificEmotions = Provider.of<Emotions>(
-          context,
-          listen: false,
-        ).findListByName(parentEmotionName);
+        _selectedEmotions = Provider.of<Emotions>(context).selectedEmotions;
       }
       _isInit = true;
-    }
-  }
-
-  void _updateEmotions(String name, bool remove, List<Emotion>? derived) {
-    if (!remove) {
-      setState(() {
-        _selectedEmotions.removeWhere((emotion) => emotion.name == name);
-      });
-    } else {
-      setState(() {
-        _selectedEmotions.add(Emotion(
-          name: name,
-          color: _specificEmotions.first.color,
-        ));
-      });
     }
   }
 
@@ -80,7 +61,6 @@ class _SpecificEmotionsScreenState extends State<SpecificEmotionsScreen> {
             const SizedBox(height: 12.0),
             EmotionsList(
               mainEmotion: _parentEmotion.name,
-              updateEmotions: _updateEmotions,
             ),
           ],
         ),

@@ -1,26 +1,22 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
-import '../models/emotion.dart';
+import '../providers/emotion.dart';
+import '../providers/emotions.dart';
 import './linked_label_checkbox.dart';
 
 class EmotionItem extends StatefulWidget {
-  final String title;
-  final Color color;
-  final bool selected;
-  void Function(String args)? onTap;
-  void Function(
-    String name,
-    bool remove,
-    List<Emotion>? derived,
-  )? updateEmotions;
+  // final String title;
+  // final Color color;
+  // final bool selected;
+  final void Function(String args)? onTap;
 
-  EmotionItem({
+  const EmotionItem({
     Key? key,
-    required this.title,
-    required this.color,
-    required this.selected,
+    // required this.title,
+    // required this.color,
+    // required this.selected,
     this.onTap,
-    this.updateEmotions,
   }) : super(key: key);
 
   @override
@@ -28,26 +24,27 @@ class EmotionItem extends StatefulWidget {
 }
 
 class _EmotionItemState extends State<EmotionItem> {
-  var _selected = false;
-
   @override
   void initState() {
     super.initState();
-    _selected = widget.selected;
   }
 
   @override
   Widget build(BuildContext context) {
+    final emotion = Provider.of<Emotion>(context);
+    final emotionData = Provider.of<Emotions>(context, listen: false);
+
     return LinkedLabelCheckbox(
-      label: widget.title,
+      label: emotion.name,
       padding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 2.0),
-      value: _selected,
-      color: widget.color,
+      value: emotion.isSelected,
+      color: emotion.color,
       onChanged: (value) {
-        setState(() {
-          _selected = value;
-          widget.updateEmotions!(widget.title, value, null);
-        });
+        // setState(() {
+        // emotion.toggleSelected();
+        // widget.updateEmotions!(widget.title, value, null);
+        // });
+        emotionData.setSelected(emotion, value);
       },
       onTap: widget.onTap,
     );

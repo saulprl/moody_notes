@@ -1,113 +1,127 @@
 import 'package:flutter/material.dart';
 
-import '../models/emotion.dart';
+import 'emotion.dart';
 
 class Emotions with ChangeNotifier {
   final List<Emotion> _emotions = [
     Emotion(
+      id: 1,
       name: 'Ira',
       color: Colors.red,
       derivedEmotions: [
         Emotion(
+          id: 10,
           name: 'Amenazado',
           color: Colors.red[400]!,
           derivedEmotions: [
-            Emotion(name: 'Inseguro', color: Colors.red[200]!),
-            Emotion(name: 'Celoso', color: Colors.red[200]!),
+            Emotion(id: 100, name: 'Inseguro', color: Colors.red[200]!),
+            Emotion(id: 101, name: 'Celoso', color: Colors.red[200]!),
           ],
         ),
         Emotion(
+          id: 11,
           name: 'Odioso',
           color: Colors.red[400]!,
           derivedEmotions: [
-            Emotion(name: 'Resentido', color: Colors.red[200]!),
-            Emotion(name: 'Violado', color: Colors.red[200]!),
+            Emotion(id: 110, name: 'Resentido', color: Colors.red[200]!),
+            Emotion(id: 111, name: 'Violado', color: Colors.red[200]!),
           ],
         ),
         Emotion(
+          id: 12,
           name: 'Desquiciado',
           color: Colors.red[400]!,
           derivedEmotions: [
-            Emotion(name: 'Enfurecido', color: Colors.red[200]!),
-            Emotion(name: 'Rabioso', color: Colors.red[200]!),
+            Emotion(id: 120, name: 'Enfurecido', color: Colors.red[200]!),
+            Emotion(id: 121, name: 'Rabioso', color: Colors.red[200]!),
           ],
         ),
         Emotion(
+          id: 13,
           name: 'Agresivo',
           color: Colors.red[400]!,
           derivedEmotions: [
-            Emotion(name: 'Provocado', color: Colors.red[200]!),
-            Emotion(name: 'Hostil', color: Colors.red[200]!),
+            Emotion(id: 130, name: 'Provocado', color: Colors.red[200]!),
+            Emotion(id: 131, name: 'Hostil', color: Colors.red[200]!),
           ],
         ),
         Emotion(
+          id: 14,
           name: 'Frustrado',
           color: Colors.red[400]!,
           derivedEmotions: [
-            Emotion(name: 'Enfadado', color: Colors.red[200]!),
-            Emotion(name: 'Irritado', color: Colors.red[200]!),
+            Emotion(id: 140, name: 'Enfadado', color: Colors.red[200]!),
+            Emotion(id: 141, name: 'Irritado', color: Colors.red[200]!),
           ],
         ),
         Emotion(
+          id: 15,
           name: 'Distante',
           color: Colors.red[400]!,
           derivedEmotions: [
-            Emotion(name: 'Retirado', color: Colors.red[200]!),
-            Emotion(name: 'Sospechoso', color: Colors.red[200]!),
+            Emotion(id: 150, name: 'Retirado', color: Colors.red[200]!),
+            Emotion(id: 151, name: 'Sospechoso', color: Colors.red[200]!),
           ],
         ),
       ],
     ),
     Emotion(
+      id: 2,
       name: 'Disgusto',
       color: Colors.orange,
       derivedEmotions: [
         Emotion(
+          id: 20,
           name: 'Crítico',
           color: Colors.orange[400]!,
           derivedEmotions: [
-            Emotion(name: 'Sarcástico', color: Colors.orange[200]!),
-            Emotion(name: 'Escéptico', color: Colors.orange[200]!),
+            Emotion(id: 200, name: 'Sarcástico', color: Colors.orange[200]!),
+            Emotion(id: 201, name: 'Escéptico', color: Colors.orange[200]!),
           ],
         ),
         Emotion(
+          id: 21,
           name: 'Desaprobado',
           color: Colors.orange[400]!,
           derivedEmotions: [
-            Emotion(name: 'Sentencioso', color: Colors.orange[200]!),
-            Emotion(name: 'Aborrecido', color: Colors.orange[200]!),
+            Emotion(id: 210, name: 'Sentencioso', color: Colors.orange[200]!),
+            Emotion(id: 211, name: 'Aborrecido', color: Colors.orange[200]!),
           ],
         ),
         Emotion(
+          id: 22,
           name: 'Decepcionado',
           color: Colors.orange[400]!,
           derivedEmotions: [
-            Emotion(name: 'Repugnante', color: Colors.orange[200]!),
-            Emotion(name: 'Rebelado', color: Colors.orange[200]!),
+            Emotion(id: 220, name: 'Repugnante', color: Colors.orange[200]!),
+            Emotion(id: 221, name: 'Rebelado', color: Colors.orange[200]!),
           ],
         ),
         Emotion(
+          id: 23,
           name: 'Terrible',
           color: Colors.orange[400]!,
           derivedEmotions: [
-            Emotion(name: 'Repulsivo', color: Colors.orange[200]!),
-            Emotion(name: 'Detestable', color: Colors.orange[200]!),
+            Emotion(id: 230, name: 'Repulsivo', color: Colors.orange[200]!),
+            Emotion(id: 231, name: 'Detestable', color: Colors.orange[200]!),
           ],
         ),
         Emotion(
+          id: 24,
           name: 'Evasivo',
           color: Colors.orange[400]!,
           derivedEmotions: [
-            Emotion(name: 'Aversivo', color: Colors.orange[200]!),
-            Emotion(name: 'Indeciso', color: Colors.orange[200]!),
+            Emotion(id: 240, name: 'Aversivo', color: Colors.orange[200]!),
+            Emotion(id: 241, name: 'Indeciso', color: Colors.orange[200]!),
           ],
         ),
         Emotion(
+          id: 25,
           name: 'Culpable',
           color: Colors.orange[400]!,
           derivedEmotions: [
-            Emotion(name: 'Atormentado', color: Colors.orange[200]!),
-            Emotion(name: 'Avergonzado', color: Colors.orange[200]!),
+            Emotion(id: 250, name: 'Atormentado', color: Colors.orange[200]!),
+            Emotion(id: 251, name: 'Avergonzado', color: Colors.orange[200]!),
           ],
         ),
       ],
@@ -356,6 +370,27 @@ class Emotions with ChangeNotifier {
     return toFind!;
   }
 
+  bool isSelected(String name, Color color) {
+    for (Emotion basic in _selectedEmotions) {
+      if (basic.name == name && basic.color == color) {
+        return true;
+      } else {
+        for (Emotion derived in basic.derivedEmotions!) {
+          if (derived.name == name && derived.color == color) {
+            return true;
+          } else {
+            for (Emotion specific in derived.derivedEmotions!) {
+              if (specific.name == name && specific.color == color) {
+                return true;
+              }
+            }
+          }
+        }
+      }
+    }
+    return false;
+  }
+
   List<Emotion> findListByName(String name) {
     Emotion? toFind;
     for (Emotion emotion in _emotions) {
@@ -376,54 +411,91 @@ class Emotions with ChangeNotifier {
     return toFind!.derivedEmotions!;
   }
 
-  Emotion findParentByChildName(String name) {
+  Emotion? findParentByChildName(String name, Color color, int tier) {
     Emotion? toFind;
     for (Emotion emotion in _emotions) {
-      if (emotion.name == name) {
-        toFind = emotion;
+      if (emotion.name == name && emotion.color == color) {
+        toFind = Emotion(name: emotion.name, color: emotion.color);
+        break;
       } else {
         for (Emotion derived in emotion.derivedEmotions!) {
-          if (derived.name == name) {
-            toFind = emotion;
+          if (derived.name == name && derived.color == color && tier == 1) {
+            toFind = Emotion(name: emotion.name, color: emotion.color);
+            break;
+          } else if (derived.name == name &&
+              derived.color == color &&
+              tier == 2) {
+            toFind = Emotion(name: derived.name, color: derived.color);
+            break;
+          } else if (derived.name == name &&
+              derived.color == color &&
+              tier == 3) {
+            toFind = Emotion(name: derived.name, color: derived.color);
+            break;
           } else {
             for (Emotion specific in derived.derivedEmotions!) {
-              if (specific.name == name) {
-                toFind = derived;
+              if (specific.name == name &&
+                  specific.color == color &&
+                  tier == 1) {
+                toFind = Emotion(name: emotion.name, color: emotion.color);
+                break;
+              } else if (specific.name == name &&
+                  specific.color == color &&
+                  tier == 2) {
+                toFind = Emotion(name: derived.name, color: derived.color);
+                break;
+              } else if (specific.name == name &&
+                  specific.color == color &&
+                  tier == 3) {
+                toFind = Emotion(name: specific.name, color: specific.color);
+                break;
               }
             }
           }
         }
       }
 
-      if (toFind != null) {
-        break;
-      }
+      // if (toFind != null) {
+      //   break;
+      // }
     }
-    return toFind!;
+    return toFind;
   }
 
   void selectEmotion(String name, Color color) {
-    final parentEmotion = findParentByChildName(name);
-    final parentsParent = findParentByChildName(parentEmotion.name);
+    final basicEmotion = findParentByChildName(name, color, 1);
+    final derivedEmotion = findParentByChildName(name, color, 2);
+    final specificEmotion = findParentByChildName(name, color, 3);
 
-    var emotion = Emotion(name: name, color: color);
-
-    if (emotion.name != parentEmotion.name) {
-      emotion = Emotion(
-        name: parentEmotion.name,
-        color: parentEmotion.color,
-        derivedEmotions: [emotion],
-      );
-
-      if (parentEmotion != parentsParent) {
-        emotion = Emotion(
-          name: parentsParent.name,
-          color: parentsParent.color,
-          derivedEmotions: [emotion],
-        );
-      }
+    if (specificEmotion!.name != derivedEmotion!.name &&
+        derivedEmotion.name != basicEmotion!.name) {
+      derivedEmotion.derivedEmotions = [specificEmotion];
+      basicEmotion.derivedEmotions = [derivedEmotion];
+      _selectedEmotions.add(basicEmotion);
+      notifyListeners();
     }
+  }
 
-    //TODO: figure this out.
+  void setSelected(Emotion selected, bool value) {
+    Emotion? basicParent;
+    Emotion? derivedParent;
+    for (Emotion basic in _emotions) {
+      for (Emotion derived in basic.derivedEmotions!) {
+        if (derived.derivedEmotions!.contains(selected)) {
+          derived.setSelected(value);
+          derivedParent = derived;
+        }
+      }
+      if (derivedParent != null &&
+          basic.derivedEmotions!.contains(derivedParent)) {
+        basic.setSelected(value);
+      }
+      // derivedParent = basic.derivedEmotions!
+      //     .firstWhere((derived) => derived.derivedEmotions!.contains(selected));
+    }
+    // basicParent = _emotions
+    //     .firstWhere((basic) => basic.derivedEmotions!.contains(derivedParent));
+    //TODO: finish the logic for selecting and deselecting.
+    selected.setSelected(value);
   }
 }

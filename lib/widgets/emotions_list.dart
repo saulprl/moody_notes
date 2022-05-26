@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../models/emotion.dart';
+import '../providers/emotion.dart';
 import '../providers/emotions.dart';
 import './emotion_item.dart';
 
-class EmotionsList extends StatelessWidget {
+class EmotionsList extends StatefulWidget {
   // final Map<String, Map<String, List<String>>> _emotions = const {
   //   'Ira': {
   //     'Amenazado': ['Inseguro', 'Celoso'],
@@ -65,50 +65,64 @@ class EmotionsList extends StatelessWidget {
   //   'Sorpresa': Colors.blue,
   //   'Miedo': Colors.purple,
   // };
-  void Function(String args)? onTap;
-  String? mainEmotion;
-  void Function(
-    String name,
-    bool remove,
-    List<Emotion>? derived,
-  )? updateEmotions;
+  final void Function(String args)? onTap;
+  final String? mainEmotion;
 
-  EmotionsList({
+  const EmotionsList({
     Key? key,
     this.mainEmotion,
     this.onTap,
-    this.updateEmotions,
   }) : super(key: key);
 
   @override
+  State<EmotionsList> createState() => _EmotionsListState();
+}
+
+class _EmotionsListState extends State<EmotionsList> {
+  @override
   Widget build(BuildContext context) {
     final List<Emotion> emotions;
-    final emotionsData = Provider.of<Emotions>(context, listen: false);
+    final emotionsData = Provider.of<Emotions>(context);
 
-    if (mainEmotion != null) {
-      emotions = emotionsData.findListByName(mainEmotion!);
+    if (widget.mainEmotion != null) {
+      emotions = emotionsData.findListByName(widget.mainEmotion!);
     } else {
       emotions = emotionsData.emotions;
     }
 
-    return ListView(
+    return ListView.builder(
       shrinkWrap: true,
-      children: emotions.map((emotion) {
-        var selected = false;
-
-        return Column(
-          children: [
-            EmotionItem(
-              title: emotion.name,
-              color: emotion.color,
-              selected: selected,
-              onTap: onTap,
-              updateEmotions: updateEmotions,
-            ),
-            const SizedBox(height: 8.0),
-          ],
+      itemCount: emotions.length,
+      itemBuilder: (ctx, index) {
+        return ChangeNotifierProvider.value(
+          value: emotions[index],
+          child: Column(
+            children: [
+              EmotionItem(
+                key: ValueKey(emotions[index].name),
+                onTap: widget.onTap,
+              ),
+              const SizedBox(height: 8.0),
+            ],
+          ),
         );
-      }).toList(),
+
+        // emotions.map((emotion) {
+        //   // var selected = emotion.isSelected;
+
+        //   return Column(
+        //     children: [
+        //       EmotionItem(
+        //         // title: emotion.name,
+        //         // color: emotion.color,
+        //         // selected: selected,
+        //         onTap: widget.onTap,
+        //       ),
+        //       const SizedBox(height: 8.0),
+        //     ],
+        //   );
+        // });
+      },
     );
   }
 }

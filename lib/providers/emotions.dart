@@ -350,6 +350,38 @@ class Emotions with ChangeNotifier {
 
   List<Emotion> get selectedEmotions => [..._selectedEmotions];
 
+  void _selectParents(Emotion selected) {
+    if (_emotions.contains(selected)) {
+      selected.setSelected(true);
+    } else {
+      for (Emotion basic in _emotions) {
+        if (basic.derivedEmotions!.contains(selected)) {
+          basic.setSelected(true);
+          selected.setSelected(true);
+        } else {
+          for (Emotion derived in basic.derivedEmotions!) {
+            if (derived.derivedEmotions!.contains(selected)) {
+              basic.setSelected(true);
+              derived.setSelected(true);
+              selected.setSelected(true);
+            }
+          }
+        }
+      }
+    }
+  }
+
+  void _deselectChildren(List<Emotion>? derived) {
+    if (derived != null) {
+      for (Emotion emotion in derived) {
+        emotion.setSelected(false);
+        if (emotion.derivedEmotions != null) {
+          _deselectChildren(emotion.derivedEmotions!);
+        }
+      }
+    }
+  }
+
   Emotion findByName(String name) {
     Emotion? toFind;
     for (Emotion emotion in _emotions) {
@@ -462,40 +494,64 @@ class Emotions with ChangeNotifier {
     return toFind;
   }
 
-  void selectEmotion(String name, Color color) {
-    final basicEmotion = findParentByChildName(name, color, 1);
-    final derivedEmotion = findParentByChildName(name, color, 2);
-    final specificEmotion = findParentByChildName(name, color, 3);
+  // void selectEmotion(String name, Color color) {
+  //   final basicEmotion = findParentByChildName(name, color, 1);
+  //   final derivedEmotion = findParentByChildName(name, color, 2);
+  //   final specificEmotion = findParentByChildName(name, color, 3);
 
-    if (specificEmotion!.name != derivedEmotion!.name &&
-        derivedEmotion.name != basicEmotion!.name) {
-      derivedEmotion.derivedEmotions = [specificEmotion];
-      basicEmotion.derivedEmotions = [derivedEmotion];
-      _selectedEmotions.add(basicEmotion);
-      notifyListeners();
-    }
+  //   if (specificEmotion!.name != derivedEmotion!.name &&
+  //       derivedEmotion.name != basicEmotion!.name) {
+  //     derivedEmotion.derivedEmotions = [specificEmotion];
+  //     basicEmotion.derivedEmotions = [derivedEmotion];
+  //     _selectedEmotions.add(basicEmotion);
+  //     notifyListeners();
+  //   }
+  // }
+
+  bool hasSelected() {
+    return _emotions.any((emotion) => emotion.isSelected);
   }
 
   void setSelected(Emotion selected, bool value) {
-    Emotion? basicParent;
-    Emotion? derivedParent;
-    for (Emotion basic in _emotions) {
-      for (Emotion derived in basic.derivedEmotions!) {
-        if (derived.derivedEmotions!.contains(selected)) {
-          derived.setSelected(value);
-          derivedParent = derived;
+    if (value) {
+      _selectParents(selected);
+    } else {
+      selected.setSelected(value);
+      _deselectChildren(selected.derivedEmotions);
+    }
+  }
+
+  List<Emotion>? _fetchSelectedDerivedEmotions(Emotion emotion) {
+    List<Emotion>? selected;
+    if (emotion.derivedEmotions != null) {
+      for (Emotion derived in emotion.derivedEmotions!) {
+        if (derived.isSelected) {
+          selected ??= [];
+
+          Emotion derivedCopy = Emotion(
+            name: derived.name,
+            color: derived.color,
+            isSelected: true,
+          );
+          selected.add(derivedCopy);
+          derivedCopy.derivedEmotions = _fetchSelectedDerivedEmotions(derived);
         }
       }
-      if (derivedParent != null &&
-          basic.derivedEmotions!.contains(derivedParent)) {
-        basic.setSelected(value);
-      }
-      // derivedParent = basic.derivedEmotions!
-      //     .firstWhere((derived) => derived.derivedEmotions!.contains(selected));
     }
-    // basicParent = _emotions
-    //     .firstWhere((basic) => basic.derivedEmotions!.contains(derivedParent));
-    //TODO: finish the logic for selecting and deselecting.
-    selected.setSelected(value);
+    return selected;
+  }
+
+  void fetchSelectedEmotions() {
+    for (Emotion emotion in _emotions) {
+      if (emotion.isSelected) {
+        Emotion emotionCopy = Emotion(
+          name: emotion.name,
+          color: emotion.color,
+          isSelected: true,
+        );
+        emotionCopy.derivedEmotions = _fetchSelectedDerivedEmotions(emotion);
+        _selectedEmotions.add(emotionCopy);
+      }
+    }
   }
 }

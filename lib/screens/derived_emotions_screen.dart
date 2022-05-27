@@ -7,7 +7,7 @@ import '../providers/emotions.dart';
 import '../widgets/emotions_list.dart';
 
 class DerivedEmotionsScreen extends StatefulWidget {
-  static const routeName = '/derived-emotions';
+  static const routeName = '/derived-emotions-screen';
 
   const DerivedEmotionsScreen({Key? key}) : super(key: key);
 

@@ -6,7 +6,7 @@ import '../providers/emotion.dart';
 import '../providers/emotions.dart';
 
 class SpecificEmotionsScreen extends StatefulWidget {
-  static const routeName = '/specific-emotions';
+  static const routeName = '/specific-emotions-screen';
 
   const SpecificEmotionsScreen({Key? key}) : super(key: key);
 

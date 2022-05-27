@@ -90,7 +90,7 @@ class _PostItemState extends State<PostItem> {
                       ),
                       actions: [
                         TextButton(
-                          child: const Text('Ok'),
+                          child: const Text('OK'),
                           onPressed: () => Navigator.of(ctx).pop(),
                         ),
                       ],

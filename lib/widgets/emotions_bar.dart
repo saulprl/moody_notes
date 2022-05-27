@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 
+import '../providers/emotion.dart';
+
 class EmotionsBar extends StatelessWidget {
-  final Map<String, Map<String, List<String>>> emotions;
+  final List<Emotion> emotions;
 
   const EmotionsBar(this.emotions, {Key? key}) : super(key: key);
 
@@ -24,65 +26,75 @@ class EmotionsBar extends StatelessWidget {
       select which emotions that particular post makes them feel.
       */
 
-      if (emotions.containsKey('Ira')) {
+      for (Emotion emotion in emotions) {
         containerList.add(
           Container(
             height: containerHeight,
             width: containerWidth,
-            color: Colors.red[400],
+            color: emotion.color,
           ),
         );
       }
 
-      if (emotions.containsKey('Disgusto')) {
-        containerList.add(
-          Container(
-            height: containerHeight,
-            width: containerWidth,
-            color: Colors.orange[400],
-          ),
-        );
-      }
+      // if (emotions.containsKey('Ira')) {
+      //   containerList.add(
+      //     Container(
+      //       height: containerHeight,
+      //       width: containerWidth,
+      //       color: Colors.red[400],
+      //     ),
+      //   );
+      // }
 
-      if (emotions.containsKey('Tristeza')) {
-        containerList.add(
-          Container(
-            height: containerHeight,
-            width: containerWidth,
-            color: Colors.green[400],
-          ),
-        );
-      }
+      // if (emotions.containsKey('Disgusto')) {
+      //   containerList.add(
+      //     Container(
+      //       height: containerHeight,
+      //       width: containerWidth,
+      //       color: Colors.orange[400],
+      //     ),
+      //   );
+      // }
 
-      if (emotions.containsKey('Felicidad')) {
-        containerList.add(
-          Container(
-            height: containerHeight,
-            width: containerWidth,
-            color: Colors.yellow[400],
-          ),
-        );
-      }
+      // if (emotions.containsKey('Tristeza')) {
+      //   containerList.add(
+      //     Container(
+      //       height: containerHeight,
+      //       width: containerWidth,
+      //       color: Colors.green[400],
+      //     ),
+      //   );
+      // }
 
-      if (emotions.containsKey('Sorpresa')) {
-        containerList.add(
-          Container(
-            height: containerHeight,
-            width: containerWidth,
-            color: Colors.blue[400],
-          ),
-        );
-      }
+      // if (emotions.containsKey('Felicidad')) {
+      //   containerList.add(
+      //     Container(
+      //       height: containerHeight,
+      //       width: containerWidth,
+      //       color: Colors.yellow[400],
+      //     ),
+      //   );
+      // }
 
-      if (emotions.containsKey('Miedo')) {
-        containerList.add(
-          Container(
-            height: containerHeight,
-            width: containerWidth,
-            color: Colors.purple[400],
-          ),
-        );
-      }
+      // if (emotions.containsKey('Sorpresa')) {
+      //   containerList.add(
+      //     Container(
+      //       height: containerHeight,
+      //       width: containerWidth,
+      //       color: Colors.blue[400],
+      //     ),
+      //   );
+      // }
+
+      // if (emotions.containsKey('Miedo')) {
+      //   containerList.add(
+      //     Container(
+      //       height: containerHeight,
+      //       width: containerWidth,
+      //       color: Colors.purple[400],
+      //     ),
+      //   );
+      // }
 
       return Column(
         children: containerList,

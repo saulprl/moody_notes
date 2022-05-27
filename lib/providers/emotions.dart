@@ -508,6 +508,13 @@ class Emotions with ChangeNotifier {
   //   }
   // }
 
+  void resetSelection() {
+    for (Emotion emotion in _emotions) {
+      setSelected(emotion, false);
+    }
+    _selectedEmotions.clear();
+  }
+
   bool hasSelected() {
     return _emotions.any((emotion) => emotion.isSelected);
   }

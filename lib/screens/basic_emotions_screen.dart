@@ -42,7 +42,7 @@ class _BasicEmotionsScreenState extends State<BasicEmotionsScreen> {
               'Escoge al menos una emoción básica que represente esta nota. Puedes presionar el nombre de la emoción para ver sus emociones derivadas.',
             ),
             const SizedBox(height: 12.0),
-            EmotionsList(onTap: _onTap),
+            Expanded(flex: 1, child: EmotionsList(onTap: _onTap)),
             const SizedBox(height: 12.0),
             ElevatedButton(
               onPressed: () {
@@ -65,6 +65,7 @@ class _BasicEmotionsScreenState extends State<BasicEmotionsScreen> {
                   );
                 } else {
                   emotionsData.fetchSelectedEmotions();
+                  Navigator.of(context).pop();
                 }
               },
               child: const Text('Guardar'),

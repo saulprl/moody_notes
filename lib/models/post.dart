@@ -1,10 +1,11 @@
 // import 'dart:io';
+import '../providers/emotion.dart';
 
 class Post {
   final String id;
   final String text;
   final DateTime date;
-  final Map<String, Map<String, List<String>>> emotions;
+  final List<Emotion> emotions;
 
   const Post({
     required this.id,

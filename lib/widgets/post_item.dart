@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 import '../screens/post_details_screen.dart';
+import '../providers/emotion.dart';
 import '../models/post.dart';
 import './emotions_bar.dart';
 
@@ -14,6 +16,48 @@ class PostItem extends StatefulWidget {
 }
 
 class _PostItemState extends State<PostItem> {
+  late FToast fToast;
+
+  @override
+  void initState() {
+    super.initState();
+    fToast = FToast();
+    fToast.init(context);
+  }
+
+  void _showToast() {
+    String postEmotions = 'Emociones de la nota: ';
+    for (var i = 0; i < widget.post.emotions.length; i++) {
+      if (i == widget.post.emotions.length - 1) {
+        postEmotions +=
+            widget.post.emotions[i].name.startsWith('I') ? ' e ' : ' y ';
+        postEmotions += widget.post.emotions[i].name;
+        postEmotions += '.';
+      } else {
+        postEmotions += widget.post.emotions[i].name;
+        if (widget.post.emotions.length > 2 &&
+            i != widget.post.emotions.length - 2) {
+          postEmotions += ', ';
+        }
+      }
+    }
+
+    Widget toast = Container(
+      padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 12.0),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(25.0),
+        color: Colors.grey,
+      ),
+      child: Text(postEmotions),
+    );
+
+    fToast.showToast(
+      child: toast,
+      gravity: ToastGravity.BOTTOM,
+      toastDuration: const Duration(seconds: 3),
+    );
+  }
+
   Widget _colorCodes(Color color, String emotion) {
     return Row(
       children: [
@@ -98,6 +142,7 @@ class _PostItemState extends State<PostItem> {
                   },
                 );
               },
+              onLongPress: _showToast,
             ),
             contentPadding: const EdgeInsets.only(
               left: 16.0,

@@ -36,66 +36,6 @@ class EmotionsBar extends StatelessWidget {
         );
       }
 
-      // if (emotions.containsKey('Ira')) {
-      //   containerList.add(
-      //     Container(
-      //       height: containerHeight,
-      //       width: containerWidth,
-      //       color: Colors.red[400],
-      //     ),
-      //   );
-      // }
-
-      // if (emotions.containsKey('Disgusto')) {
-      //   containerList.add(
-      //     Container(
-      //       height: containerHeight,
-      //       width: containerWidth,
-      //       color: Colors.orange[400],
-      //     ),
-      //   );
-      // }
-
-      // if (emotions.containsKey('Tristeza')) {
-      //   containerList.add(
-      //     Container(
-      //       height: containerHeight,
-      //       width: containerWidth,
-      //       color: Colors.green[400],
-      //     ),
-      //   );
-      // }
-
-      // if (emotions.containsKey('Felicidad')) {
-      //   containerList.add(
-      //     Container(
-      //       height: containerHeight,
-      //       width: containerWidth,
-      //       color: Colors.yellow[400],
-      //     ),
-      //   );
-      // }
-
-      // if (emotions.containsKey('Sorpresa')) {
-      //   containerList.add(
-      //     Container(
-      //       height: containerHeight,
-      //       width: containerWidth,
-      //       color: Colors.blue[400],
-      //     ),
-      //   );
-      // }
-
-      // if (emotions.containsKey('Miedo')) {
-      //   containerList.add(
-      //     Container(
-      //       height: containerHeight,
-      //       width: containerWidth,
-      //       color: Colors.purple[400],
-      //     ),
-      //   );
-      // }
-
       return Column(
         children: containerList,
       );

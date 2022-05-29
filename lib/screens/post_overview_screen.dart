@@ -15,12 +15,12 @@ class PostOverviewScreen extends StatelessWidget {
         title: const Text('anx'),
       ),
       body: Column(
-        children: [
+        children: const [
           Padding(
-            padding: const EdgeInsets.all(8.0),
+            padding: EdgeInsets.all(8.0),
             child: TextArea(),
           ),
-          const Divider(),
+          Divider(),
           PostList(),
         ],
       ),

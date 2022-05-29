@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
 import '../screens/post_details_screen.dart';
-import '../providers/emotion.dart';
 import '../models/post.dart';
 import './emotions_bar.dart';
 

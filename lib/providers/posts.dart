@@ -3,7 +3,6 @@
 import 'package:flutter/material.dart';
 
 import '../models/post.dart';
-import './emotions.dart';
 import './emotion.dart';
 
 class Posts with ChangeNotifier {

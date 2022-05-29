@@ -17,7 +17,6 @@ class SpecificEmotionsScreen extends StatefulWidget {
 class _SpecificEmotionsScreenState extends State<SpecificEmotionsScreen> {
   var _isInit = false;
   late Emotion _parentEmotion;
-  late List<Emotion> _selectedEmotions;
 
   @override
   void didChangeDependencies() {
@@ -31,8 +30,6 @@ class _SpecificEmotionsScreenState extends State<SpecificEmotionsScreen> {
           context,
           listen: false,
         ).findByName(parentEmotionName);
-
-        _selectedEmotions = Provider.of<Emotions>(context).selectedEmotions;
       }
       _isInit = true;
     }
@@ -44,12 +41,6 @@ class _SpecificEmotionsScreenState extends State<SpecificEmotionsScreen> {
       appBar: AppBar(
         title: Text(_parentEmotion.name),
         backgroundColor: _parentEmotion.color,
-        actions: [
-          IconButton(
-            onPressed: _selectedEmotions.isEmpty ? null : () {},
-            icon: const Icon(Icons.check),
-          ),
-        ],
       ),
       body: Padding(
         padding: const EdgeInsets.all(12.0),

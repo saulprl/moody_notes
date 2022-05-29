@@ -50,7 +50,7 @@ class MyApp extends StatelessWidget {
               const DerivedEmotionsScreen(),
           SpecificEmotionsScreen.routeName: (ctx) =>
               const SpecificEmotionsScreen(),
-        }, //TODO: Add toast message for long press on EmotionsBar.
+        },
       ),
     );
   }

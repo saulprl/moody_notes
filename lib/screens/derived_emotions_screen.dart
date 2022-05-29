@@ -18,7 +18,6 @@ class DerivedEmotionsScreen extends StatefulWidget {
 class _DerivedEmotionsScreenState extends State<DerivedEmotionsScreen> {
   var _isInit = false;
   late Emotion _basicEmotion;
-  late List<Emotion> _derivedEmotions;
 
   @override
   void didChangeDependencies() {
@@ -32,11 +31,6 @@ class _DerivedEmotionsScreenState extends State<DerivedEmotionsScreen> {
             .emotions
             .firstWhere(
                 (basicEmotion) => basicEmotion.name == basicEmotionName);
-
-        _derivedEmotions = Provider.of<Emotions>(context, listen: false)
-            .emotions
-            .firstWhere((basicEmotion) => basicEmotion.name == basicEmotionName)
-            .derivedEmotions!;
       }
       _isInit = true;
     }

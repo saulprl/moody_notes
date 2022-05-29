@@ -3,10 +3,8 @@ import 'package:provider/provider.dart';
 
 import '../screens/basic_emotions_screen.dart';
 import '../providers/emotions.dart';
-import '../providers/emotion.dart';
 import '../providers/posts.dart';
 import '../models/post.dart';
-import 'emotions_list.dart';
 
 class TextArea extends StatefulWidget {
   const TextArea({Key? key}) : super(key: key);

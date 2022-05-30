@@ -1,6 +1,8 @@
-// import 'dart:io';
+import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:path/path.dart' as path;
+import 'package:path_provider/path_provider.dart' as syspaths;
 
 import '../models/post.dart';
 import './emotion.dart';
@@ -169,6 +171,51 @@ class Posts with ChangeNotifier {
   void addPost(Post newPost) {
     _items.add(newPost);
     notifyListeners();
+  }
+
+  Future<void> addSavePost(
+    String text,
+    List<Emotion> emotions,
+    List<Emotion> generalEmotions,
+  ) async {
+    var emotionNames = '';
+    for (Emotion emotion in emotions) {
+      emotionNames += emotion.toString() + '\n';
+    }
+
+    final appDir = await syspaths.getApplicationDocumentsDirectory();
+    final id = DateTime.now().toIso8601String();
+
+    final textFile = File(path.join(appDir.path, 'note-$id.txt'));
+    final emotionsFile = File(path.join(appDir.path, 'emotions-$id.txt'));
+    await textFile.writeAsString(text);
+    await emotionsFile.writeAsString(emotionNames);
+
+    try {
+      final contents = await textFile.readAsString();
+      final storedEmotions = await emotionsFile.readAsString();
+      List<Emotion> readEmotions = [];
+
+      for (String line in storedEmotions.split('\n')) {
+        for (String segment in line.split(' ')) {
+          for (Emotion basic in generalEmotions) {
+            //TODO: figure this out. Need to instantiate all read emotions.
+          }
+        }
+      }
+
+      // final postFromFile = Post(
+      //   id: path.basename(textFile.path),
+      //   text: contents,
+      //   date: DateTime.parse(path.basename(textFile.path)),
+      //   emotions:
+      // );
+
+      print('Content: $contents');
+      print('Emotions: $storedEmotions');
+    } catch (error) {
+      print('Sadge error ${error.toString()}');
+    }
   }
 
   void deletePost(String id) {

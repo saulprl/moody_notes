@@ -12,7 +12,7 @@ class PostOverviewScreen extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.primary,
         elevation: 0.0,
-        title: const Text('anx'),
+        title: const Text('Moody Notes'),
       ),
       body: Column(
         children: const [

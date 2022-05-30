@@ -17,18 +17,28 @@ class _TextAreaState extends State<TextArea> {
   final _focusNode = FocusNode();
   final _controller = TextEditingController();
   var _isEmpty = true;
+  var _isFocused = false;
 
   @override
   void initState() {
     super.initState();
     _controller.addListener(_isEmptyListener);
+    _focusNode.addListener(_isFocusedListener);
   }
 
   @override
   void dispose() {
     _controller.removeListener(_isEmptyListener);
     _controller.dispose();
+    _focusNode.removeListener(_isFocusedListener);
+    _focusNode.dispose();
     super.dispose();
+  }
+
+  void _isFocusedListener() {
+    setState(() {
+      _isFocused = _focusNode.hasFocus;
+    });
   }
 
   void _isEmptyListener() {
@@ -48,18 +58,22 @@ class _TextAreaState extends State<TextArea> {
     return Column(
       children: [
         Container(
+          padding: const EdgeInsets.all(4.0),
           decoration: BoxDecoration(
             border: Border.all(
-              color: Theme.of(context).colorScheme.secondary,
+              color: _isFocused
+                  ? Theme.of(context).colorScheme.primary
+                  : Colors.grey,
               width: 1.0,
             ),
           ),
           child: TextField(
             focusNode: _focusNode,
             controller: _controller,
-            decoration: const InputDecoration(
+            decoration: InputDecoration(
               // label: Text('Escribe algo...'),
               hintText: 'Escribe algo...',
+              focusColor: Theme.of(context).colorScheme.primary,
             ),
             autocorrect: true,
             enableSuggestions: true,
@@ -71,8 +85,15 @@ class _TextAreaState extends State<TextArea> {
         ),
         const SizedBox(height: 12.0),
         Row(
-          mainAxisAlignment: MainAxisAlignment.end,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
+            TextButton(
+              child: const Text('Borrar'),
+              onPressed: () {
+                _controller.text = '';
+                _focusNode.unfocus();
+              },
+            ),
             ElevatedButton(
               child: const Text('Guardar'),
               onPressed: _isEmpty

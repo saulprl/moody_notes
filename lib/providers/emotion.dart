@@ -15,6 +15,18 @@ class Emotion with ChangeNotifier {
     this.isSelected = false,
   });
 
+  @override
+  String toString() {
+    var emotionNames = '';
+    emotionNames += name + ' ';
+    if (derivedEmotions != null) {
+      for (Emotion emotion in derivedEmotions!) {
+        emotionNames += emotion.toString();
+      }
+    }
+    return emotionNames;
+  }
+
   void setSelected(bool value) {
     isSelected = value;
     notifyListeners();

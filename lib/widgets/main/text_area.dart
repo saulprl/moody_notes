@@ -120,6 +120,17 @@ class _TextAreaState extends State<TextArea> {
                             emotions: emotionList,
                           ),
                         );
+                        await Provider.of<Posts>(
+                          context,
+                          listen: false,
+                        ).addSavePost(
+                          _controller.text,
+                          emotionList,
+                          Provider.of<Emotions>(
+                            context,
+                            listen: false,
+                          ).emotions,
+                        );
                         Provider.of<Emotions>(
                           context,
                           listen: false,

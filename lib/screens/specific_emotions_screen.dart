@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../widgets/emotions_list.dart';
+import '../widgets/emotions/emotions_list.dart';
 import '../providers/emotion.dart';
 import '../providers/emotions.dart';
 

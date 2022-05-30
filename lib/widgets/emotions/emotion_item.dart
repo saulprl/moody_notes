@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../providers/emotion.dart';
-import '../providers/emotions.dart';
-import './linked_label_checkbox.dart';
+import '../../providers/emotion.dart';
+import '../../providers/emotions.dart';
+import '../main/linked_label_checkbox.dart';
 
 class EmotionItem extends StatefulWidget {
   // final String title;

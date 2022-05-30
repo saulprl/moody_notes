@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import '../widgets/text_area.dart';
-import '../widgets/post_list.dart';
+import '../widgets/main/text_area.dart';
+import '../widgets/posts/post_list.dart';
 
 class PostOverviewScreen extends StatelessWidget {
   const PostOverviewScreen({Key? key}) : super(key: key);

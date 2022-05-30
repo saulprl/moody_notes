@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../providers/emotion.dart';
+import '../../providers/emotion.dart';
 
 class EmotionsBar extends StatelessWidget {
   final List<Emotion> emotions;

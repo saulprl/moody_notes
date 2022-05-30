@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../providers/posts.dart';
-import './post_item.dart';
+import '../../providers/posts.dart';
+import 'post_item.dart';
 
 class PostList extends StatelessWidget {
   const PostList({Key? key}) : super(key: key);

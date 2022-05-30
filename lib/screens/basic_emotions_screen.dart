@@ -3,7 +3,7 @@ import 'package:provider/provider.dart';
 
 import './derived_emotions_screen.dart';
 import '../providers/emotions.dart';
-import '../widgets/emotions_list.dart';
+import '../widgets/emotions/emotions_list.dart';
 
 class BasicEmotionsScreen extends StatefulWidget {
   static const routeName = '/basic-emotions-screen';

@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../providers/emotion.dart';
-import '../providers/emotions.dart';
-import './emotion_item.dart';
+import '../../providers/emotion.dart';
+import '../../providers/emotions.dart';
+import 'emotion_item.dart';
 
 class EmotionsList extends StatefulWidget {
   // final Map<String, Map<String, List<String>>> _emotions = const {

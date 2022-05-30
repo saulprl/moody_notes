@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
-import '../screens/post_details_screen.dart';
-import '../models/post.dart';
-import './emotions_bar.dart';
+import '../../screens/post_details_screen.dart';
+import '../../models/post.dart';
+import '../emotions/emotions_bar.dart';
 
 class PostItem extends StatefulWidget {
   final Post post;

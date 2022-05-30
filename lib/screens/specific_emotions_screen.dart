@@ -47,7 +47,7 @@ class _SpecificEmotionsScreenState extends State<SpecificEmotionsScreen> {
         child: Column(
           children: [
             const Text(
-              'Finalmente, puedes elegir una o varias emociones específicas.',
+              'Finalmente, puedes elegir hasta dos emociones específicas.',
             ),
             const SizedBox(height: 12.0),
             EmotionsList(

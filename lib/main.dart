@@ -28,7 +28,7 @@ class MyApp extends StatelessWidget {
         )
       ],
       child: MaterialApp(
-        title: 'anx',
+        title: 'Moody Notes',
         theme: ThemeData(
           colorScheme: ColorScheme.dark(
             primary: Colors.pink[400]!,

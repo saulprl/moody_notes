@@ -5,11 +5,15 @@ import 'package:sqflite/sqflite.dart' as sql;
 class DBHelper {
   static Future<Database> database() async {
     final dbPath = await sql.getDatabasesPath();
-    return sql.openDatabase(path.join(dbPath, 'posts.db'),
-        onCreate: (db, version) {
-      return db.execute(
-          'CREATE TABLE posts(post_id TEXT PRIMARY KEY, post_text TEXT, post_date TEXT, post_emotions TEXT)');
-    }, version: 1);
+    return sql.openDatabase(
+      path.join(dbPath, 'posts.db'),
+      onCreate: (db, version) {
+        return db.execute(
+          'CREATE TABLE posts(post_id TEXT PRIMARY KEY, post_path TEXT)',
+        );
+      },
+      version: 1,
+    );
   }
 
   static Future<List<Map<String, dynamic>>> fetchData(String table) async {

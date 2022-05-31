@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:path/path.dart' as path;
@@ -178,44 +179,50 @@ class Posts with ChangeNotifier {
     List<Emotion> emotions,
     List<Emotion> generalEmotions,
   ) async {
-    var emotionNames = '';
-    for (Emotion emotion in emotions) {
-      emotionNames += emotion.toString() + '\n';
-    }
+    final post = Post(
+      id: DateTime.now().toIso8601String(),
+      text: text,
+      emotions: emotions,
+      date: DateTime.now(),
+    );
+    String jsonString = json.encode(post);
+    final jsonPost = Post.fromJson(json.decode(jsonString));
+    print(jsonPost.text);
+    print(jsonPost.emotions);
 
-    final appDir = await syspaths.getApplicationDocumentsDirectory();
-    final id = DateTime.now().toIso8601String();
+    // List<Emotion> fromJson = [];
+    // for (Emotion emotion in emotions) {
+    //   // print(emotion.toMap());
+    //   String jsonString = json.encode(emotion);
+    // }
 
-    final textFile = File(path.join(appDir.path, 'note-$id.txt'));
-    final emotionsFile = File(path.join(appDir.path, 'emotions-$id.txt'));
-    await textFile.writeAsString(text);
-    await emotionsFile.writeAsString(emotionNames);
+    // final appDir = await syspaths.getApplicationDocumentsDirectory();
+    // final id = DateTime.now().toIso8601String();
 
-    try {
-      final contents = await textFile.readAsString();
-      final storedEmotions = await emotionsFile.readAsString();
-      List<Emotion> readEmotions = [];
+    // final textFile = File(path.join(appDir.path, 'note-$id.txt'));
+    // final emotionsFile = File(path.join(appDir.path, 'emotions-$id.txt'));
+    // await textFile.writeAsString(text);
+    // await emotionsFile.writeAsString(emotionNames);
 
-      for (String line in storedEmotions.split('\n')) {
-        for (String segment in line.split(' ')) {
-          for (Emotion basic in generalEmotions) {
-            //TODO: figure this out. Need to instantiate all read emotions.
-          }
-        }
-      }
+    // try {
+    //   final contents = await textFile.readAsString();
+    //   final storedEmotions = await emotionsFile.readAsString();
+    //   List<Emotion> readEmotions = [];
 
-      // final postFromFile = Post(
-      //   id: path.basename(textFile.path),
-      //   text: contents,
-      //   date: DateTime.parse(path.basename(textFile.path)),
-      //   emotions:
-      // );
+    //   for (String line in storedEmotions.split('\n')) {}
 
-      print('Content: $contents');
-      print('Emotions: $storedEmotions');
-    } catch (error) {
-      print('Sadge error ${error.toString()}');
-    }
+    //   // final postFromFile = Post(
+    //   //   id: path.basename(textFile.path),
+    //   //   text: contents,
+    //   //   date: DateTime.parse(path.basename(textFile.path)),
+    //   //   emotions:
+    //   // );
+
+    //   print('Content: $contents');
+    //   print('Emotions: $storedEmotions');
+    // } catch (error) {
+    //   print('Sadge error ${error.toString()}');
+    // }
   }
 
   void deletePost(String id) {

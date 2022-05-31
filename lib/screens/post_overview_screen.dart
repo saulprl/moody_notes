@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
+import '../providers/posts.dart';
 import '../widgets/main/text_area.dart';
 import '../widgets/posts/post_list.dart';
 
@@ -14,15 +16,26 @@ class PostOverviewScreen extends StatelessWidget {
         elevation: 0.0,
         title: const Text('Moody Notes'),
       ),
-      body: Column(
-        children: const [
-          Padding(
-            padding: EdgeInsets.all(8.0),
-            child: TextArea(),
-          ),
-          Divider(),
-          PostList(),
-        ],
+      body: FutureBuilder(
+        future: Provider.of<Posts>(
+          context,
+          listen: false,
+        ).fetchPosts(),
+        builder: (ctx, snapshot) =>
+            snapshot.connectionState == ConnectionState.waiting
+                ? const Center(
+                    child: CircularProgressIndicator(),
+                  )
+                : Column(
+                    children: const [
+                      Padding(
+                        padding: EdgeInsets.all(8.0),
+                        child: TextArea(),
+                      ),
+                      Divider(),
+                      PostList(),
+                    ],
+                  ),
       ),
     );
   }

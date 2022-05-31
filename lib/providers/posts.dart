@@ -171,18 +171,17 @@ class Posts with ChangeNotifier {
 
   Future<void> fetchPosts() async {
     _items.clear();
-    notifyListeners();
     final dataList = await DBHelper.fetchData('posts');
     for (Map<String, dynamic> map in dataList) {
       try {
         final jsonFile = File(map['post_path']);
         final jsonString = await jsonFile.readAsString();
         _items.add(Post.fromJson(json.decode(jsonString)));
+        notifyListeners();
       } catch (error) {
         print('Fetch sadge ${error.toString()}');
       }
     }
-    notifyListeners();
   }
 
   Future<void> addPost(Post newPost) async {

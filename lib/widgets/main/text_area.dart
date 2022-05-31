@@ -89,10 +89,12 @@ class _TextAreaState extends State<TextArea> {
           children: [
             TextButton(
               child: const Text('Borrar'),
-              onPressed: () {
-                _controller.text = '';
-                _focusNode.unfocus();
-              },
+              onPressed: _isEmpty
+                  ? null
+                  : () {
+                      _controller.text = '';
+                      _focusNode.unfocus();
+                    },
             ),
             ElevatedButton(
               child: const Text('Guardar'),
@@ -109,27 +111,17 @@ class _TextAreaState extends State<TextArea> {
                       ).selectedEmotions;
 
                       if (emotionList.isNotEmpty) {
-                        Provider.of<Posts>(
+                        final date = DateTime.now();
+                        await Provider.of<Posts>(
                           context,
                           listen: false,
                         ).addPost(
                           Post(
-                            id: DateTime.now().toIso8601String(),
+                            id: date.toIso8601String(),
                             text: _controller.text,
-                            date: DateTime.now(),
+                            date: date,
                             emotions: emotionList,
                           ),
-                        );
-                        await Provider.of<Posts>(
-                          context,
-                          listen: false,
-                        ).addSavePost(
-                          _controller.text,
-                          emotionList,
-                          Provider.of<Emotions>(
-                            context,
-                            listen: false,
-                          ).emotions,
                         );
                         Provider.of<Emotions>(
                           context,

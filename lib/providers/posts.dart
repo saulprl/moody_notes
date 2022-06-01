@@ -169,6 +169,8 @@ class Posts with ChangeNotifier {
 
   List<Post> get items => [..._items];
 
+  Post findById(String id) => _items.firstWhere((i) => i.id == id);
+
   Future<void> fetchPosts() async {
     _items.clear();
     final dataList = await DBHelper.fetchData('posts');

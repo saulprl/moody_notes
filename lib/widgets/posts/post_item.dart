@@ -27,7 +27,8 @@ class _PostItemState extends State<PostItem> {
   void _showToast() {
     String postEmotions = 'Emociones de la nota: ';
     for (var i = 0; i < widget.post.emotions.length; i++) {
-      if (i == widget.post.emotions.length - 1) {
+      if (i == widget.post.emotions.length - 1 &&
+          widget.post.emotions.length > 1) {
         postEmotions +=
             widget.post.emotions[i].name.startsWith('I') ? ' e ' : ' y ';
         postEmotions += widget.post.emotions[i].name;
@@ -99,7 +100,10 @@ class _PostItemState extends State<PostItem> {
             );
           },
           child: ListTile(
-            title: Text(widget.post.text),
+            title: Text(
+              widget.post.text,
+              overflow: TextOverflow.ellipsis,
+            ),
             subtitle: Text(widget.post.date.toIso8601String().split('T')[0]),
             trailing: GestureDetector(
               child: EmotionsBar(widget.post.emotions),

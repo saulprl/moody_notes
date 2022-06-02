@@ -3,10 +3,10 @@ import 'package:provider/provider.dart';
 
 import './providers/posts.dart';
 import './providers/emotions.dart';
-import './screens/post_details_screen.dart';
 import './screens/post_overview_screen.dart';
 import './screens/basic_emotions_screen.dart';
 import './screens/derived_emotions_screen.dart';
+import './screens/post_details_tabs_screen.dart';
 import './screens/specific_emotions_screen.dart';
 
 void main() {
@@ -44,7 +44,8 @@ class MyApp extends StatelessWidget {
         ),
         home: const PostOverviewScreen(),
         routes: {
-          PostDetailsScreen.routeName: (ctx) => const PostDetailsScreen(),
+          PostDetailsTabsScreen.routeName: (ctx) =>
+              const PostDetailsTabsScreen(),
           BasicEmotionsScreen.routeName: (ctx) => const BasicEmotionsScreen(),
           DerivedEmotionsScreen.routeName: (ctx) =>
               const DerivedEmotionsScreen(),

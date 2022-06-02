@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
-import '../../screens/post_details_screen.dart';
-import '../../models/post.dart';
 import '../emotions/emotions_bar.dart';
+import '../../screens/post_details_screen.dart';
+import '../../screens/post_details_tabs_screen.dart';
+import '../../models/post.dart';
 
 class PostItem extends StatefulWidget {
   final Post post;
@@ -95,7 +96,7 @@ class _PostItemState extends State<PostItem> {
           onTap: () {
             FocusScope.of(context).unfocus();
             Navigator.of(context).pushNamed(
-              PostDetailsScreen.routeName,
+              PostDetailsTabsScreen.routeName,
               arguments: widget.post.id,
             );
           },

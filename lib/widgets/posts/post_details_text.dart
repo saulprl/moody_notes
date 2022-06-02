@@ -17,11 +17,13 @@ class PostDetailsText extends StatelessWidget {
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(16.0),
           ),
-          child: Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: Text(
-              selectedPost.text,
-              style: const TextStyle(fontSize: 16.0),
+          child: SingleChildScrollView(
+            child: Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: Text(
+                selectedPost.text,
+                style: const TextStyle(fontSize: 16.0),
+              ),
             ),
           ),
         ),

@@ -3,23 +3,22 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 
 import '../../providers/emotion.dart';
+import './derived_emotion_tile.dart';
 
-class PostEmotionItem extends StatefulWidget {
+class PostDetailsEmotionItem extends StatefulWidget {
   final Emotion emotion;
 
-  const PostEmotionItem(this.emotion, {Key? key}) : super(key: key);
+  const PostDetailsEmotionItem(this.emotion, {Key? key}) : super(key: key);
 
   @override
-  State<PostEmotionItem> createState() => _PostEmotionItemState();
+  State<PostDetailsEmotionItem> createState() => _PostDetailsEmotionItemState();
 }
 
-class _PostEmotionItemState extends State<PostEmotionItem> {
+class _PostDetailsEmotionItemState extends State<PostDetailsEmotionItem> {
   var _expanded = false;
 
   @override
   Widget build(BuildContext context) {
-    final deviceSize = MediaQuery.of(context).size;
-
     return Card(
       child: Column(
         children: [
@@ -59,22 +58,25 @@ class _PostEmotionItemState extends State<PostEmotionItem> {
               ),
               duration: const Duration(milliseconds: 300),
               constraints: BoxConstraints(
-                minHeight: _expanded ? deviceSize.height * 0.7 : 0.0,
-                maxHeight: _expanded ? deviceSize.height * 0.7 : 0.0,
+                minHeight: _expanded
+                    ? widget.emotion.derivedEmotions!.length * 65.0
+                    : 0.0,
+                maxHeight: _expanded
+                    ? widget.emotion.derivedEmotions!.length * 65.0
+                    : 0.0,
               ),
-              // padding: const EdgeInsets.only(
-              //   left: 16.0,
-              // ),
-              height: deviceSize.height * 0.7,
-              // min(
-              //   widget.emotion.derivedEmotions!.length * 65.0,
-              //   390.0,
-              // ),
+              height: min(
+                widget.emotion.derivedEmotions!.length * 65.0,
+                390.0,
+              ),
               child: ListView.builder(
+                physics: const NeverScrollableScrollPhysics(),
                 itemCount: widget.emotion.derivedEmotions!.length,
                 itemBuilder: (ctx, index) {
-                  return PostEmotionItem(
-                    widget.emotion.derivedEmotions![index],
+                  return DerivedEmotionTile(
+                    widget.emotion.derivedEmotions![index].derivedEmotions,
+                    name: widget.emotion.derivedEmotions![index].name,
+                    color: widget.emotion.derivedEmotions![index].color,
                   );
                 },
               ),

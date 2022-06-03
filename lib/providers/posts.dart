@@ -8,7 +8,6 @@ import 'package:path_provider/path_provider.dart' as syspaths;
 import '../models/db_exception.dart';
 import '../helpers/db_helper.dart';
 import '../models/post.dart';
-import './emotion.dart';
 
 class Posts with ChangeNotifier {
   final List<Post> _items = [
@@ -217,5 +216,53 @@ class Posts with ChangeNotifier {
   void deletePost(String id) {
     _items.removeWhere((post) => post.id == id);
     notifyListeners();
+  }
+
+  void filterPosts([
+    byAnger = false,
+    byDisgust = false,
+    bySadness = false,
+    byHappiness = false,
+    bySurprise = false,
+    byFear = false,
+  ]) {
+    if (byAnger ||
+        byDisgust ||
+        bySadness ||
+        byHappiness ||
+        bySurprise ||
+        byFear) {
+      List<Post> filtered = [];
+      if (byAnger) {
+        filtered.addAll(_items.where(
+          (i) => i.emotions.any((e) => e.name == 'Ira'),
+        ));
+      }
+      if (byDisgust) {
+        filtered.addAll(_items.where(
+          (i) => i.emotions.any((e) => e.name == 'Disgusto'),
+        ));
+      }
+      if (bySadness) {
+        filtered.addAll(_items.where(
+          (i) => i.emotions.any((e) => e.name == 'Tristeza'),
+        ));
+      }
+      if (byHappiness) {
+        filtered.addAll(_items.where(
+          (i) => i.emotions.any((e) => e.name == 'Felicidad'),
+        ));
+      }
+      if (bySurprise) {
+        filtered.addAll(_items.where(
+          (i) => i.emotions.any((e) => e.name == 'Sorpresa'),
+        ));
+      }
+      if (byFear) {
+        filtered.addAll(_items.where(
+          (i) => i.emotions.any((e) => e.name == 'Miedo'),
+        ));
+      }
+    }
   }
 }

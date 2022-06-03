@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 
 import './providers/posts.dart';
 import './providers/emotions.dart';
+import './screens/filters_screen.dart';
 import './screens/post_overview_screen.dart';
 import './screens/basic_emotions_screen.dart';
 import './screens/derived_emotions_screen.dart';
@@ -51,6 +52,7 @@ class MyApp extends StatelessWidget {
               const DerivedEmotionsScreen(),
           SpecificEmotionsScreen.routeName: (ctx) =>
               const SpecificEmotionsScreen(),
+          FiltersScreen.routeName: (ctx) => const FiltersScreen(),
         },
       ),
     );

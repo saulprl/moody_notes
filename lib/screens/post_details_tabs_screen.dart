@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:intl/date_symbol_data_local.dart';
 import 'package:provider/provider.dart';
+import 'package:intl/intl.dart';
 
 import '../providers/posts.dart';
 import '../widgets/posts/post_details_text.dart';
@@ -18,6 +20,13 @@ class _PostDetailsTabsScreenState extends State<PostDetailsTabsScreen> {
   late List<Map<String, dynamic>> _screens;
   var _isInit = false;
   var _selectedScreenIndex = 0;
+  String _postDate = '';
+
+  @override
+  void initState() {
+    super.initState();
+    initializeDateFormatting();
+  }
 
   @override
   void didChangeDependencies() {
@@ -31,13 +40,14 @@ class _PostDetailsTabsScreenState extends State<PostDetailsTabsScreen> {
         _screens = [
           {
             'screen': PostDetailsText(post),
-            'title': 'Texto de la nota',
+            'title': 'Nota',
           },
           {
             'screen': PostDetailsEmotionsList(post.emotions),
-            'title': 'Emociones de la nota',
+            'title': 'Emociones',
           },
         ];
+        _postDate = DateFormat('MMM dd, yyyy', 'es_MX').format(post.date);
       }
       _isInit = true;
     }
@@ -53,7 +63,13 @@ class _PostDetailsTabsScreenState extends State<PostDetailsTabsScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(_screens[_selectedScreenIndex]['title'] as String),
+        title: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Text(_screens[_selectedScreenIndex]['title'] as String),
+            Text(_postDate),
+          ],
+        ),
         backgroundColor: Theme.of(context).colorScheme.primary,
       ),
       body: _screens[_selectedScreenIndex]['screen'] as Widget,

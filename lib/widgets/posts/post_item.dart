@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:intl/date_symbol_data_local.dart';
+import 'package:intl/intl.dart';
 
 import '../emotions/emotions_bar.dart';
 import '../../screens/post_details_tabs_screen.dart';
@@ -20,6 +22,7 @@ class _PostItemState extends State<PostItem> {
   @override
   void initState() {
     super.initState();
+    initializeDateFormatting();
     fToast = FToast();
     fToast.init(context);
   }
@@ -54,7 +57,7 @@ class _PostItemState extends State<PostItem> {
     fToast.showToast(
       child: toast,
       gravity: ToastGravity.BOTTOM,
-      toastDuration: const Duration(seconds: 3),
+      toastDuration: const Duration(seconds: 2),
     );
   }
 
@@ -104,7 +107,9 @@ class _PostItemState extends State<PostItem> {
               widget.post.text,
               overflow: TextOverflow.ellipsis,
             ),
-            subtitle: Text(widget.post.date.toIso8601String().split('T')[0]),
+            subtitle: Text(
+              DateFormat('MMM dd, yyyy', 'es_MX').format(widget.post.date),
+            ),
             trailing: GestureDetector(
               child: EmotionsBar(widget.post.emotions),
               onTap: () {

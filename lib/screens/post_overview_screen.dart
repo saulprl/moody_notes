@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 import '../providers/posts.dart';
 import '../widgets/main/text_area.dart';
 import '../widgets/posts/post_list.dart';
+import './filters_screen.dart';
 
 class PostOverviewScreen extends StatelessWidget {
   const PostOverviewScreen({Key? key}) : super(key: key);
@@ -15,6 +16,14 @@ class PostOverviewScreen extends StatelessWidget {
         backgroundColor: Theme.of(context).colorScheme.primary,
         elevation: 0.0,
         title: const Text('Moody Notes'),
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.filter_list_alt),
+            onPressed: () {
+              Navigator.of(context).pushNamed(FiltersScreen.routeName);
+            },
+          ),
+        ],
       ),
       body: FutureBuilder(
         future: Provider.of<Posts>(

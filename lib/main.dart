@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:intl/date_symbol_data_local.dart';
 
 import './providers/posts.dart';
 import './providers/filters.dart';
 import './providers/emotions.dart';
 import './screens/filters_screen.dart';
+import './screens/calendar_screen.dart';
 import './screens/post_overview_screen.dart';
 import './screens/basic_emotions_screen.dart';
 import './screens/derived_emotions_screen.dart';
@@ -12,7 +14,7 @@ import './screens/post_details_tabs_screen.dart';
 import './screens/specific_emotions_screen.dart';
 
 void main() {
-  runApp(const MyApp());
+  initializeDateFormatting().then((_) => runApp(const MyApp()));
 }
 
 class MyApp extends StatelessWidget {
@@ -57,6 +59,7 @@ class MyApp extends StatelessWidget {
           SpecificEmotionsScreen.routeName: (ctx) =>
               const SpecificEmotionsScreen(),
           FiltersScreen.routeName: (ctx) => const FiltersScreen(),
+          CalendarScreen.routeName: (ctx) => const CalendarScreen(),
         },
       ),
     );

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:intl/date_symbol_data_local.dart';
 import 'package:provider/provider.dart';
 import 'package:intl/intl.dart';
 
@@ -25,7 +24,6 @@ class _PostDetailsTabsScreenState extends State<PostDetailsTabsScreen> {
   @override
   void initState() {
     super.initState();
-    initializeDateFormatting();
   }
 
   @override

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:intl/date_symbol_data_local.dart';
 import 'package:intl/intl.dart';
 
 import '../emotions/emotions_bar.dart';
@@ -22,7 +21,6 @@ class _PostItemState extends State<PostItem> {
   @override
   void initState() {
     super.initState();
-    initializeDateFormatting();
     fToast = FToast();
     fToast.init(context);
   }

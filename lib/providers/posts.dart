@@ -5,8 +5,9 @@ import 'package:flutter/material.dart';
 import 'package:path/path.dart' as path;
 import 'package:path_provider/path_provider.dart' as syspaths;
 
-import '../models/db_exception.dart';
 import '../helpers/db_helper.dart';
+import '../models/db_exception.dart';
+import '../models/filter.dart';
 import '../models/post.dart';
 
 class Posts with ChangeNotifier {
@@ -218,51 +219,20 @@ class Posts with ChangeNotifier {
     notifyListeners();
   }
 
-  void filterPosts([
-    byAnger = false,
-    byDisgust = false,
-    bySadness = false,
-    byHappiness = false,
-    bySurprise = false,
-    byFear = false,
-  ]) {
-    if (byAnger ||
-        byDisgust ||
-        bySadness ||
-        byHappiness ||
-        bySurprise ||
-        byFear) {
-      List<Post> filtered = [];
-      if (byAnger) {
-        filtered.addAll(_items.where(
-          (i) => i.emotions.any((e) => e.name == 'Ira'),
-        ));
-      }
-      if (byDisgust) {
-        filtered.addAll(_items.where(
-          (i) => i.emotions.any((e) => e.name == 'Disgusto'),
-        ));
-      }
-      if (bySadness) {
-        filtered.addAll(_items.where(
-          (i) => i.emotions.any((e) => e.name == 'Tristeza'),
-        ));
-      }
-      if (byHappiness) {
-        filtered.addAll(_items.where(
-          (i) => i.emotions.any((e) => e.name == 'Felicidad'),
-        ));
-      }
-      if (bySurprise) {
-        filtered.addAll(_items.where(
-          (i) => i.emotions.any((e) => e.name == 'Sorpresa'),
-        ));
-      }
-      if (byFear) {
-        filtered.addAll(_items.where(
-          (i) => i.emotions.any((e) => e.name == 'Miedo'),
-        ));
-      }
-    }
+  Future<void> filterPosts(List<Filter> filters) async {
+    List<Post> filteredPosts = [];
+    await fetchPosts();
+    filteredPosts = _items.where((p) {
+      return filters.every((f) {
+        if (f.value && !p.hasEmotion(f.emotion)) {
+          return false;
+        }
+        return true;
+      });
+    }).toList();
+
+    _items.clear();
+    _items.addAll(filteredPosts);
+    notifyListeners();
   }
 }

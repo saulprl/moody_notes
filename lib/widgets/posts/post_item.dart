@@ -105,6 +105,7 @@ class _PostItemState extends State<PostItem> {
           child: ListTile(
             title: Text(
               widget.post.text,
+              maxLines: 1,
               overflow: TextOverflow.ellipsis,
             ),
             subtitle: Text(

@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 import '../providers/posts.dart';
 import '../widgets/main/text_area.dart';
 import '../widgets/posts/post_list.dart';
+import '../widgets/main/moody_drawer.dart';
 import './filters_screen.dart';
 
 class PostOverviewScreen extends StatelessWidget {
@@ -25,6 +26,7 @@ class PostOverviewScreen extends StatelessWidget {
           ),
         ],
       ),
+      drawer: const MoodyDrawer(),
       body: FutureBuilder(
         future: Provider.of<Posts>(
           context,

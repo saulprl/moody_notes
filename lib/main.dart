@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import './providers/posts.dart';
+import './providers/filters.dart';
 import './providers/emotions.dart';
 import './screens/filters_screen.dart';
 import './screens/post_overview_screen.dart';
@@ -22,11 +23,14 @@ class MyApp extends StatelessWidget {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(
+          create: (ctx) => Filters(),
+        ),
+        ChangeNotifierProvider(
           create: (ctx) => Posts(),
         ),
         ChangeNotifierProvider(
           create: (ctx) => Emotions(),
-        )
+        ),
       ],
       child: MaterialApp(
         title: 'Moody Notes',

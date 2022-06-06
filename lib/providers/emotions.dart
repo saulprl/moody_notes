@@ -350,6 +350,10 @@ class Emotions with ChangeNotifier {
 
   List<Emotion> get selectedEmotions => [..._selectedEmotions];
 
+  Color getEmotionColor(String name) {
+    return _emotions.firstWhere((e) => e.name == name).color;
+  }
+
   void _selectParents(Emotion selected) {
     if (_emotions.contains(selected)) {
       selected.setSelected(true);

@@ -36,4 +36,8 @@ class Post {
       'emotions': jsonEmotions,
     };
   }
+
+  bool hasEmotion(String name) {
+    return emotions.any((e) => e.name == name);
+  }
 }

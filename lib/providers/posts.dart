@@ -238,20 +238,18 @@ class Posts with ChangeNotifier {
   }
 
   void _countPostsPerDay() {
-    DateTime? current;
+    DateTime current;
     int count = 0;
     _highestPostsPerDay = count;
     for (Post p in _items) {
-      current ??= p.date;
-      if (current.day == p.date.day &&
-          current.month == p.date.month &&
-          current.year == p.date.year) {
-        count++;
-      } else {
-        current = p.date;
-        count = 1;
-      }
-      if (_highestPostsPerDay == null || count > _highestPostsPerDay!) {
+      current = p.date;
+      count = _items
+          .where((post) =>
+              current.day == post.date.day &&
+              current.month == post.date.month &&
+              current.year == post.date.year)
+          .length;
+      if (count > _highestPostsPerDay!) {
         _highestPostsPerDay = count;
       }
     }
@@ -267,19 +265,16 @@ class Posts with ChangeNotifier {
   }
 
   double calculateOpacity(DateTime date) {
-    if (_highestPostsPerDay == null) {
-      _countPostsPerDay();
-    }
+    _countPostsPerDay();
     if (_highestPostsPerDay == 0) {
       return 0.0;
     }
-    return _items
-            .where((p) =>
-                p.date.day == date.day &&
-                p.date.month == date.month &&
-                p.date.year == date.year)
-            .length /
-        _highestPostsPerDay!;
+    final filteredByDate = _items.where((p) =>
+        p.date.day == date.day &&
+        p.date.month == date.month &&
+        p.date.year == date.year);
+
+    return filteredByDate.length / _highestPostsPerDay!;
   }
 
   List<Color> getEmotionsPerDay(DateTime date) {

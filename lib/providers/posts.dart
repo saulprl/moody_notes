@@ -11,6 +11,7 @@ import '../models/filter.dart';
 import '../models/post.dart';
 
 class Posts with ChangeNotifier {
+  int? _highestPostsPerDay;
   final List<Post> _items = [
     // Post(
     //   id: DateTime(2022, 5, 17).toIso8601String(),
@@ -234,5 +235,84 @@ class Posts with ChangeNotifier {
     _items.clear();
     _items.addAll(filteredPosts);
     notifyListeners();
+  }
+
+  void _countPostsPerDay() {
+    DateTime? current;
+    int count = 0;
+    for (Post p in _items) {
+      current ??= p.date;
+      if (current.day == p.date.day &&
+          current.month == p.date.month &&
+          current.year == p.date.year) {
+        count++;
+      } else {
+        if (_highestPostsPerDay == null || count > _highestPostsPerDay!) {
+          _highestPostsPerDay = count;
+        }
+        current = p.date;
+        count = 1;
+      }
+    }
+  }
+
+  List<Color> getEmotionsPerDay(DateTime date) {
+    List<Color> colors = [];
+    final postedOnDate = _items
+        .where((p) =>
+            p.date.day == date.day &&
+            p.date.month == date.month &&
+            p.date.year == date.year)
+        .toList();
+
+    for (Post p in postedOnDate) {
+      if (p.hasEmotion('Ira')) {
+        if (!colors.contains(Colors.red)) {
+          colors.add(Colors.red);
+        }
+      }
+      if (p.hasEmotion('Disgusto')) {
+        if (!colors.contains(Colors.orange)) {
+          colors.add(Colors.orange);
+        }
+      }
+      if (p.hasEmotion('Tristeza')) {
+        if (!colors.contains(Colors.green)) {
+          colors.add(Colors.green);
+        }
+      }
+      if (p.hasEmotion('Felicidad')) {
+        if (!colors.contains(Colors.amber)) {
+          colors.add(Colors.amber);
+        }
+      }
+      if (p.hasEmotion('Sorpresa')) {
+        if (!colors.contains(Colors.blue)) {
+          colors.add(Colors.blue);
+        }
+      }
+      if (p.hasEmotion('Miedo')) {
+        if (!colors.contains(Colors.purple)) {
+          colors.add(Colors.purple);
+        }
+      }
+    }
+    return colors;
+  }
+
+  double calculateOpacity(DateTime date) {
+    if (_highestPostsPerDay == null) {
+      _countPostsPerDay();
+    }
+    if (_highestPostsPerDay == 0) {
+      return 0.0;
+    }
+    return _items
+            .where((p) =>
+                p.date.day == date.day &&
+                p.date.month == date.month &&
+                p.date.year == date.year)
+            .length /
+        _highestPostsPerDay!;
   }
 }

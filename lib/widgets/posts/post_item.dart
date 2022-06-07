@@ -22,7 +22,7 @@ class _PostItemState extends State<PostItem> {
   void initState() {
     super.initState();
     fToast = FToast();
-    fToast.init(context);
+    fToast.init(context); // Bug?
   }
 
   void _showToast() {

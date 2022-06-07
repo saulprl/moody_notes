@@ -111,13 +111,20 @@ class _TextAreaState extends State<TextArea> {
                       ).selectedEmotions;
 
                       if (emotionList.isNotEmpty) {
-                        final date = DateTime.now();
+                        var date = await showDatePicker(
+                          context: context,
+                          initialDate: DateTime.now(),
+                          firstDate: DateTime.utc(2020, 8, 14),
+                          lastDate:
+                              DateTime.now().add(const Duration(days: 365)),
+                        );
+                        date ??= DateTime.now();
                         await Provider.of<Posts>(
                           context,
                           listen: false,
                         ).addPost(
                           Post(
-                            id: date.toIso8601String(),
+                            id: UniqueKey().toString() + date.toIso8601String(),
                             text: _controller.text,
                             date: date,
                             emotions: emotionList,

@@ -256,6 +256,31 @@ class Posts with ChangeNotifier {
     }
   }
 
+  int countPosts(DateTime date) {
+    return _items
+        .where((p) =>
+            p.date.day == date.day &&
+            p.date.month == date.month &&
+            p.date.year == date.year)
+        .length;
+  }
+
+  double calculateOpacity(DateTime date) {
+    if (_highestPostsPerDay == null) {
+      _countPostsPerDay();
+    }
+    if (_highestPostsPerDay == 0) {
+      return 0.0;
+    }
+    return _items
+            .where((p) =>
+                p.date.day == date.day &&
+                p.date.month == date.month &&
+                p.date.year == date.year)
+            .length /
+        _highestPostsPerDay!;
+  }
+
   List<Color> getEmotionsPerDay(DateTime date) {
     List<Color> colors = [];
     final postedOnDate = _items
@@ -298,21 +323,5 @@ class Posts with ChangeNotifier {
       }
     }
     return colors;
-  }
-
-  double calculateOpacity(DateTime date) {
-    if (_highestPostsPerDay == null) {
-      _countPostsPerDay();
-    }
-    if (_highestPostsPerDay == 0) {
-      return 0.0;
-    }
-    return _items
-            .where((p) =>
-                p.date.day == date.day &&
-                p.date.month == date.month &&
-                p.date.year == date.year)
-            .length /
-        _highestPostsPerDay!;
   }
 }

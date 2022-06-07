@@ -132,7 +132,7 @@ class _PostItemState extends State<PostItem> {
                             'Los colores representan seis emociones principales.',
                           ),
                           _colorCodes(Colors.blue[400]!, 'Sorpresa'),
-                          _colorCodes(Colors.yellow[400]!, 'Felicidad'),
+                          _colorCodes(Colors.amber[400]!, 'Felicidad'),
                           _colorCodes(Colors.purple[400]!, 'Miedo'),
                           _colorCodes(Colors.orange[400]!, 'Disgusto'),
                           _colorCodes(Colors.red[400]!, 'Ira'),

@@ -119,11 +119,6 @@ class _CalendarScreenState extends State<CalendarScreen> {
                   padding: const EdgeInsets.symmetric(vertical: 8.0),
                   child: Text('Notas del día: $_notesPerDay'),
                 ),
-                // ElevatedButton.icon(
-                //   icon: const Icon(Icons.search),
-                //   label: const Text('Buscar notas'),
-                //   onPressed: () {},
-                // ),
               ],
             ),
           ),

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:uuid/uuid.dart';
 
 import '../../screens/basic_emotions_screen.dart';
 import '../../providers/emotions.dart';
@@ -102,6 +103,7 @@ class _TextAreaState extends State<TextArea> {
                   ? null
                   : () async {
                       _focusNode.unfocus();
+                      var uuid = const Uuid();
                       await Navigator.of(context)
                           .pushNamed(BasicEmotionsScreen.routeName);
 
@@ -124,7 +126,7 @@ class _TextAreaState extends State<TextArea> {
                           listen: false,
                         ).addPost(
                           Post(
-                            id: UniqueKey().toString() + date.toIso8601String(),
+                            id: uuid.v1(),
                             text: _controller.text,
                             date: date,
                             emotions: emotionList,

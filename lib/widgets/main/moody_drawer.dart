@@ -7,10 +7,10 @@ class MoodyDrawer extends StatelessWidget {
 
   Widget _buildButton(String title, IconData icon, VoidCallback tapHandler) {
     return ListTile(
-      leading: Icon(icon, size: 26),
+      leading: Icon(icon, size: 22.0),
       title: Text(
         title,
-        style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+        style: const TextStyle(fontSize: 20.0),
       ),
       onTap: tapHandler,
     );
@@ -21,17 +21,22 @@ class MoodyDrawer extends StatelessWidget {
     return Drawer(
       child: Column(
         children: [
-          Container(
-            height: 120,
-            width: double.infinity,
-            padding: const EdgeInsets.all(20.0),
-            alignment: Alignment.centerLeft,
-            child: const Text(
-              'Moody Notes',
-              style: TextStyle(fontSize: 30.0),
-            ),
+          AppBar(
+            automaticallyImplyLeading: false,
+            backgroundColor: Theme.of(context).colorScheme.primary,
+            title: const Text('Moody Notes'),
           ),
-          const SizedBox(height: 20.0),
+          // Container(
+          //   height: 120,
+          //   width: double.infinity,
+          //   padding: const EdgeInsets.all(20.0),
+          //   alignment: Alignment.centerLeft,
+          //   child: const Text(
+          //     'Moody Notes',
+          //     style: TextStyle(fontSize: 30.0),
+          //   ),
+          // ),
+          const SizedBox(height: 10.0),
           _buildButton(
             'Inicio',
             Icons.home,
@@ -42,6 +47,11 @@ class MoodyDrawer extends StatelessWidget {
             Icons.calendar_month,
             () => Navigator.of(context)
                 .pushReplacementNamed(CalendarScreen.routeName),
+          ),
+          _buildButton(
+            'Acerca de',
+            Icons.info,
+            () {},
           ),
         ],
       ),

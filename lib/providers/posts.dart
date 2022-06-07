@@ -240,6 +240,7 @@ class Posts with ChangeNotifier {
   void _countPostsPerDay() {
     DateTime? current;
     int count = 0;
+    _highestPostsPerDay = count;
     for (Post p in _items) {
       current ??= p.date;
       if (current.day == p.date.day &&
@@ -247,11 +248,11 @@ class Posts with ChangeNotifier {
           current.year == p.date.year) {
         count++;
       } else {
-        if (_highestPostsPerDay == null || count > _highestPostsPerDay!) {
-          _highestPostsPerDay = count;
-        }
         current = p.date;
         count = 1;
+      }
+      if (_highestPostsPerDay == null || count > _highestPostsPerDay!) {
+        _highestPostsPerDay = count;
       }
     }
   }

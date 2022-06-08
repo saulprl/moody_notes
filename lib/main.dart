@@ -5,6 +5,7 @@ import 'package:intl/date_symbol_data_local.dart';
 import './providers/posts.dart';
 import './providers/filters.dart';
 import './providers/emotions.dart';
+import './screens/about_screen.dart';
 import './screens/filters_screen.dart';
 import './screens/calendar_screen.dart';
 import './screens/post_overview_screen.dart';
@@ -60,6 +61,7 @@ class MyApp extends StatelessWidget {
               const SpecificEmotionsScreen(),
           FiltersScreen.routeName: (ctx) => const FiltersScreen(),
           CalendarScreen.routeName: (ctx) => const CalendarScreen(),
+          AboutScreen.routeName: (ctx) => const AboutScreen(),
         },
       ),
     );

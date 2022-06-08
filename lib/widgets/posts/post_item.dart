@@ -19,10 +19,10 @@ class _PostItemState extends State<PostItem> {
   late FToast fToast;
 
   @override
-  void initState() {
-    super.initState();
+  void didChangeDependencies() {
+    super.didChangeDependencies();
     fToast = FToast();
-    fToast.init(context); // Bug?
+    fToast.init(context);
   }
 
   void _showToast() {

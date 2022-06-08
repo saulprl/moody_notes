@@ -52,8 +52,26 @@ class _FiltersScreenState extends State<FiltersScreen> {
         actions: [
           IconButton(
             icon: const Icon(Icons.save),
-            onPressed: () async =>
-                await postsData.filterPosts(filtersData.filters),
+            onPressed: () async {
+              try {
+                await postsData.filterPosts(filtersData.filters);
+              } catch (error) {
+                showDialog(
+                  context: context,
+                  builder: (ctx) => AlertDialog(
+                    title: const Text('Error al filtrar'),
+                    content: Text(
+                        'Ocurrió un error durante el filtrado. Puedes reportar este problema con el desarrollador de la aplicación. Error: ${error.toString()}'),
+                    actions: [
+                      TextButton(
+                        child: const Text('Ok'),
+                        onPressed: () => Navigator.of(ctx).pop(),
+                      ),
+                    ],
+                  ),
+                );
+              }
+            },
           ),
         ],
       ),
@@ -100,8 +118,26 @@ class _FiltersScreenState extends State<FiltersScreen> {
                 ),
                 ElevatedButton(
                   child: const Text('Guardar filtros'),
-                  onPressed: () async =>
-                      await postsData.filterPosts(filtersData.filters),
+                  onPressed: () async {
+                    try {
+                      await postsData.filterPosts(filtersData.filters);
+                    } catch (error) {
+                      showDialog(
+                        context: context,
+                        builder: (ctx) => AlertDialog(
+                          title: const Text('Error al filtrar'),
+                          content: Text(
+                              'Ocurrió un error durante el filtrado. Puedes reportar este problema con el desarrollador de la aplicación. Error: ${error.toString()}'),
+                          actions: [
+                            TextButton(
+                              child: const Text('Ok'),
+                              onPressed: () => Navigator.of(ctx).pop(),
+                            ),
+                          ],
+                        ),
+                      );
+                    }
+                  },
                 ),
               ],
             ),

@@ -182,9 +182,19 @@ class Posts with ChangeNotifier {
         _items.add(Post.fromJson(json.decode(jsonString)));
         notifyListeners();
       } catch (error) {
-        print('Fetch sadge ${error.toString()}');
+        rethrow;
       }
     }
+    sortPosts();
+  }
+
+  void sortPosts([int sortMode = 1]) {
+    _items.sort((a, b) {
+      return sortMode == 0
+          ? a.date.compareTo(b.date)
+          : b.date.compareTo(a.date);
+    });
+    notifyListeners();
   }
 
   Future<void> addPost(Post newPost) async {

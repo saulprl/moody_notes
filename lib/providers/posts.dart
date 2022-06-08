@@ -231,20 +231,24 @@ class Posts with ChangeNotifier {
   }
 
   Future<void> filterPosts(List<Filter> filters) async {
-    List<Post> filteredPosts = [];
-    await fetchPosts();
-    filteredPosts = _items.where((p) {
-      return filters.every((f) {
-        if (f.value && !p.hasEmotion(f.emotion)) {
-          return false;
-        }
-        return true;
-      });
-    }).toList();
+    try {
+      List<Post> filteredPosts = [];
+      await fetchPosts();
+      filteredPosts = _items.where((p) {
+        return filters.every((f) {
+          if (f.value && !p.hasEmotion(f.emotion)) {
+            return false;
+          }
+          return true;
+        });
+      }).toList();
 
-    _items.clear();
-    _items.addAll(filteredPosts);
-    notifyListeners();
+      _items.clear();
+      _items.addAll(filteredPosts);
+      notifyListeners();
+    } catch (error) {
+      rethrow;
+    }
   }
 
   void _countPostsPerDay() {

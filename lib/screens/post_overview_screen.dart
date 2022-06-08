@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 import '../providers/posts.dart';
 import '../widgets/main/text_area.dart';
 import '../widgets/posts/post_list.dart';
+import '../widgets/main/sort_button.dart';
 import '../widgets/main/moody_drawer.dart';
 import './filters_screen.dart';
 
@@ -38,13 +39,22 @@ class PostOverviewScreen extends StatelessWidget {
                     child: CircularProgressIndicator(),
                   )
                 : Column(
-                    children: const [
-                      Padding(
+                    children: [
+                      const Padding(
                         padding: EdgeInsets.all(8.0),
                         child: TextArea(),
                       ),
-                      Divider(),
-                      PostList(),
+                      const Divider(),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 4.0),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: const [
+                            SortButton(),
+                          ],
+                        ),
+                      ),
+                      const PostList(),
                     ],
                   ),
       ),

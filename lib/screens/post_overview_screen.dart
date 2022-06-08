@@ -11,6 +11,29 @@ import './filters_screen.dart';
 class PostOverviewScreen extends StatelessWidget {
   const PostOverviewScreen({Key? key}) : super(key: key);
 
+  Future<void> _fetch(BuildContext ctx) async {
+    try {
+      await Provider.of<Posts>(
+        ctx,
+        listen: false,
+      ).fetchPosts();
+    } catch (error) {
+      showDialog(
+        context: ctx,
+        builder: (ct) => AlertDialog(
+          title: const Text('Error durante la consulta'),
+          content: Text(error.toString()),
+          actions: [
+            TextButton(
+              child: const Text('Ok'),
+              onPressed: () => Navigator.of(ct).pop(),
+            ),
+          ],
+        ),
+      );
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -29,10 +52,7 @@ class PostOverviewScreen extends StatelessWidget {
       ),
       drawer: const MoodyDrawer(),
       body: FutureBuilder(
-        future: Provider.of<Posts>(
-          context,
-          listen: false,
-        ).fetchPosts(),
+        future: _fetch(context),
         builder: (ctx, snapshot) =>
             snapshot.connectionState == ConnectionState.waiting
                 ? const Center(

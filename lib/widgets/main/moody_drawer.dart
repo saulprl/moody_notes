@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../../screens/about_screen.dart';
 import '../../screens/calendar_screen.dart';
 
 class MoodyDrawer extends StatelessWidget {
@@ -51,7 +52,8 @@ class MoodyDrawer extends StatelessWidget {
           _buildButton(
             'Acerca de',
             Icons.info,
-            () {},
+            () => Navigator.of(context)
+                .pushReplacementNamed(AboutScreen.routeName),
           ),
         ],
       ),

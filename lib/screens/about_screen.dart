@@ -32,6 +32,8 @@ class AboutScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    String? version = ModalRoute.of(context)!.settings.arguments as String;
+
     return Scaffold(
       appBar: AppBar(
         title: const Text('Acerca de Moody Notes'),
@@ -68,34 +70,49 @@ class AboutScreen extends StatelessWidget {
             Expanded(
               child: Align(
                 alignment: FractionalOffset.bottomCenter,
-                child: Container(
-                  width: MediaQuery.of(context).size.width * 0.4,
-                  padding: const EdgeInsets.all(8.0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      GestureDetector(
-                        child: const Icon(FontAwesomeIcons.twitter, size: 36.0),
-                        onTap: () =>
-                            _launchUrl('https://twitter.com/saulpxrl', context),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    Row(
+                      children: [
+                        const Expanded(child: Divider()),
+                        Text('Version $version'),
+                        const Expanded(child: Divider()),
+                      ],
+                    ),
+                    const SizedBox(height: 8.0),
+                    Container(
+                      width: MediaQuery.of(context).size.width * 0.4,
+                      padding: const EdgeInsets.all(8.0),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          GestureDetector(
+                            child: const Icon(FontAwesomeIcons.twitter,
+                                size: 36.0),
+                            onTap: () => _launchUrl(
+                                'https://twitter.com/saulpxrl', context),
+                          ),
+                          GestureDetector(
+                            child:
+                                const Icon(FontAwesomeIcons.github, size: 36.0),
+                            onTap: () => _launchUrl(
+                                'https://github.com/saulprl', context),
+                          ),
+                          GestureDetector(
+                            child: const Icon(FontAwesomeIcons.instagram,
+                                size: 36.0),
+                            onTap: () => _launchUrl(
+                                'https://instagram.com/saulprl', context),
+                          ),
+                        ],
                       ),
-                      GestureDetector(
-                        child: const Icon(FontAwesomeIcons.github, size: 36.0),
-                        onTap: () =>
-                            _launchUrl('https://github.com/saulprl', context),
+                      decoration: BoxDecoration(
+                        border: Border.all(color: Colors.grey),
+                        borderRadius: BorderRadius.circular(8.0),
                       ),
-                      GestureDetector(
-                        child:
-                            const Icon(FontAwesomeIcons.instagram, size: 36.0),
-                        onTap: () => _launchUrl(
-                            'https://instagram.com/saulprl', context),
-                      ),
-                    ],
-                  ),
-                  decoration: BoxDecoration(
-                    border: Border.all(color: Colors.grey),
-                    borderRadius: BorderRadius.circular(8.0),
-                  ),
+                    ),
+                  ],
                 ),
               ),
             ),

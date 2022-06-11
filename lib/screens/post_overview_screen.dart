@@ -61,7 +61,10 @@ class PostOverviewScreen extends StatelessWidget {
                 : Column(
                     children: [
                       const Padding(
-                        padding: EdgeInsets.all(8.0),
+                        padding: EdgeInsets.symmetric(
+                          vertical: 8.0,
+                          horizontal: 4.0,
+                        ),
                         child: TextArea(),
                       ),
                       const Divider(),

@@ -38,12 +38,39 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         title: 'Moody Notes',
         theme: ThemeData(
-          colorScheme: ColorScheme.dark(
+          // colorScheme: ColorScheme.dark(
+          //   primary: Colors.pink[400]!,
+          //   secondary: Colors.purple[300]!,
+          //   background: Colors.grey[900]!,
+          //   surface: Colors.grey[800]!,
+          //   onPrimary: Colors.white,
+          // ),
+          colorScheme: ColorScheme.light(
             primary: Colors.pink[400]!,
-            secondary: Colors.purple[300]!,
-            background: Colors.grey[900]!,
-            surface: Colors.grey[800]!,
+            secondary: Colors.deepPurple,
             onPrimary: Colors.white,
+            surface: Colors.white,
+            onSurface: Colors.grey,
+            onBackground: Colors.grey[800]!,
+          ),
+          appBarTheme: AppBarTheme(
+            elevation: 3.0,
+            backgroundColor: Colors.pink[400]!,
+          ),
+          outlinedButtonTheme: OutlinedButtonThemeData(
+            style: ButtonStyle(
+              foregroundColor: MaterialStateProperty.all<Color>(Colors.black),
+              shape: MaterialStateProperty.all<OutlinedBorder>(
+                RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(24.0),
+                ),
+              ),
+              side: MaterialStateProperty.all<BorderSide>(
+                const BorderSide(color: Colors.black),
+              ),
+              splashFactory: NoSplash.splashFactory,
+              visualDensity: VisualDensity.compact,
+            ),
           ),
           // .copyWith(
           //   primary: Colors.purple[800],

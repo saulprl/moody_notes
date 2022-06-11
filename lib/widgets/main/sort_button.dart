@@ -39,31 +39,41 @@ class _SortButtonState extends State<SortButton> {
 
   @override
   Widget build(BuildContext context) {
-    return TextButton(
+    return OutlinedButton(
       child: Text(
         _buttonText,
-        style: const TextStyle(color: Colors.white, fontSize: 12.0),
-      ),
-      style: ButtonStyle(
-        splashFactory: NoSplash.splashFactory,
-        side: MaterialStateProperty.all<BorderSide>(
-          const BorderSide(
-            color: Colors.black,
-            style: BorderStyle.solid,
-          ),
-        ),
-        shape: MaterialStateProperty.all<OutlinedBorder>(
-          RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(24.0),
-          ),
-        ),
-        visualDensity: VisualDensity.compact,
+        style: const TextStyle(fontSize: 12.0),
       ),
       onPressed: () {
         _switchButtonText();
-
         Provider.of<Posts>(context, listen: false).sortPosts(_sortMode.index);
       },
     );
+    // TextButton(
+    //   child: Text(
+    //     _buttonText,
+    //     style: const TextStyle(fontSize: 12.0),
+    //   ),
+    //   style: ButtonStyle(
+    //     splashFactory: NoSplash.splashFactory,
+    //     side: MaterialStateProperty.all<BorderSide>(
+    //       const BorderSide(
+    //         color: Colors.black,
+    //         style: BorderStyle.solid,
+    //       ),
+    //     ),
+    //     shape: MaterialStateProperty.all<OutlinedBorder>(
+    //       RoundedRectangleBorder(
+    //         borderRadius: BorderRadius.circular(24.0),
+    //       ),
+    //     ),
+    //     visualDensity: VisualDensity.compact,
+    //   ),
+    //   onPressed: () {
+    //     _switchButtonText();
+
+    //     Provider.of<Posts>(context, listen: false).sortPosts(_sortMode.index);
+    //   },
+    // );
   }
 }

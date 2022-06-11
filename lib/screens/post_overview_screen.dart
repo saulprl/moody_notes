@@ -39,7 +39,7 @@ class PostOverviewScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.primary,
-        elevation: 0.0,
+        // elevation: 0.0,
         title: const Text('Moody Notes'),
         actions: [
           IconButton(

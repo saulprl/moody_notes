@@ -70,16 +70,22 @@ class MyApp extends StatelessWidget {
               elevation: 3.0,
               backgroundColor: Colors.pink[400]!,
             ),
+            shadowColor:
+                themeProvider.isDark ? Colors.grey[900] : Colors.grey[600],
             outlinedButtonTheme: OutlinedButtonThemeData(
               style: ButtonStyle(
-                foregroundColor: MaterialStateProperty.all<Color>(Colors.black),
+                foregroundColor: MaterialStateProperty.all<Color>(
+                  themeProvider.isDark ? Colors.white : Colors.black,
+                ),
                 shape: MaterialStateProperty.all<OutlinedBorder>(
                   RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(24.0),
                   ),
                 ),
                 side: MaterialStateProperty.all<BorderSide>(
-                  const BorderSide(color: Colors.black),
+                  BorderSide(
+                    color: themeProvider.isDark ? Colors.white : Colors.black,
+                  ),
                 ),
                 splashFactory: NoSplash.splashFactory,
                 visualDensity: VisualDensity.compact,

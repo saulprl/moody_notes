@@ -15,7 +15,6 @@ class PostOverviewScreen extends StatelessWidget {
     try {
       await Provider.of<Posts>(
         ctx,
-        listen: false,
       ).fetchPosts();
     } catch (error) {
       showDialog(

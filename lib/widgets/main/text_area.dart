@@ -2,9 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:uuid/uuid.dart';
 
-import '../../screens/basic_emotions_screen.dart';
-import '../../providers/emotions.dart';
 import '../../providers/posts.dart';
+import '../../providers/emotions.dart';
+import '../../providers/post_date_preferences.dart';
+
+import '../../screens/basic_emotions_screen.dart';
+
 import '../../models/post.dart';
 
 class TextArea extends StatefulWidget {
@@ -98,48 +101,52 @@ class _TextAreaState extends State<TextArea> {
                       _focusNode.unfocus();
                     },
             ),
-            ElevatedButton(
-              child: const Text('Guardar'),
-              onPressed: _isEmpty
-                  ? null
-                  : () async {
-                      _focusNode.unfocus();
-                      var uuid = const Uuid();
-                      await Navigator.of(context)
-                          .pushNamed(BasicEmotionsScreen.routeName);
+            Consumer<PostDatePreferences>(
+              builder: (ctx, datePref, child) => ElevatedButton(
+                child: const Text('Guardar'),
+                onPressed: _isEmpty
+                    ? null
+                    : () async {
+                        _focusNode.unfocus();
+                        var uuid = const Uuid();
+                        await Navigator.of(context)
+                            .pushNamed(BasicEmotionsScreen.routeName);
 
-                      final emotionList = Provider.of<Emotions>(
-                        context,
-                        listen: false,
-                      ).selectedEmotions;
-
-                      if (emotionList.isNotEmpty) {
-                        var date = await showDatePicker(
-                          context: context,
-                          initialDate: DateTime.now(),
-                          firstDate: DateTime.utc(2020, 8, 14),
-                          lastDate:
-                              DateTime.now().add(const Duration(days: 365)),
-                        );
-                        date ??= DateTime.now();
-                        await Provider.of<Posts>(
+                        final emotionList = Provider.of<Emotions>(
                           context,
                           listen: false,
-                        ).addPost(
-                          Post(
-                            id: uuid.v1(),
-                            text: _controller.text,
-                            date: date,
-                            emotions: emotionList,
-                          ),
-                        );
-                        Provider.of<Emotions>(
-                          context,
-                          listen: false,
-                        ).resetSelection();
-                        _controller.text = '';
-                      }
-                    },
+                        ).selectedEmotions;
+
+                        if (emotionList.isNotEmpty) {
+                          var date = datePref.askForDate
+                              ? await showDatePicker(
+                                  context: context,
+                                  initialDate: DateTime.now(),
+                                  firstDate: DateTime.utc(2020, 8, 14),
+                                  lastDate: DateTime.now()
+                                      .add(const Duration(days: 365)),
+                                )
+                              : DateTime.now();
+                          date ??= DateTime.now();
+                          await Provider.of<Posts>(
+                            context,
+                            listen: false,
+                          ).addPost(
+                            Post(
+                              id: uuid.v1(),
+                              text: _controller.text,
+                              date: date,
+                              emotions: emotionList,
+                            ),
+                          );
+                          Provider.of<Emotions>(
+                            context,
+                            listen: false,
+                          ).resetSelection();
+                          _controller.text = '';
+                        }
+                      },
+              ),
             ),
           ],
         )

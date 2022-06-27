@@ -39,7 +39,7 @@ class AboutScreen extends StatelessWidget {
         title: const Text('Acerca de Moody Notes'),
         backgroundColor: Theme.of(context).colorScheme.primary,
       ),
-      drawer: const MoodyDrawer(),
+      // drawer: const MoodyDrawer(),
       body: Padding(
         padding: const EdgeInsets.all(8.0),
         child: Column(

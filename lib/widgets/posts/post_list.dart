@@ -2,15 +2,37 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../../providers/posts.dart';
-import 'post_item.dart';
+import './post_item.dart';
 
 class PostList extends StatelessWidget {
   final DateTime? date;
 
   const PostList({this.date, Key? key}) : super(key: key);
 
-  @override
-  Widget build(BuildContext context) {
+  Future<void> _fetch(BuildContext ctx) async {
+    try {
+      await Provider.of<Posts>(
+        ctx,
+        listen: false,
+      ).fetchPosts();
+    } catch (error) {
+      showDialog(
+        context: ctx,
+        builder: (ct) => AlertDialog(
+          title: const Text('Error durante la consulta'),
+          content: Text(error.toString()),
+          actions: [
+            TextButton(
+              child: const Text('Ok'),
+              onPressed: () => Navigator.of(ct).pop(),
+            ),
+          ],
+        ),
+      );
+    }
+  }
+
+  Widget _postListBuilder() {
     return Expanded(
       child: Consumer<Posts>(
         child: const Center(
@@ -48,5 +70,19 @@ class PostList extends StatelessWidget {
         },
       ),
     );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return date == null
+        ? FutureBuilder(
+            future: _fetch(context),
+            builder: (ctx, snapshot) =>
+                snapshot.connectionState == ConnectionState.waiting
+                    ? const Center(
+                        child: CircularProgressIndicator(),
+                      )
+                    : _postListBuilder())
+        : _postListBuilder();
   }
 }

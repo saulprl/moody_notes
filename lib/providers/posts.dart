@@ -180,7 +180,6 @@ class Posts with ChangeNotifier {
         final jsonFile = File(map['post_path']);
         final jsonString = await jsonFile.readAsString();
         _items.add(Post.fromJson(json.decode(jsonString)));
-        notifyListeners();
       } catch (error) {
         rethrow;
       }
@@ -221,7 +220,7 @@ class Posts with ChangeNotifier {
     } catch (error) {
       _items.remove(newPost);
       notifyListeners();
-      print('Sadge error ${error.toString()}');
+      debugPrint('Sadge error ${error.toString()}');
     }
   }
 

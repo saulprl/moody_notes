@@ -26,6 +26,14 @@ class LinkedLabelCheckbox extends StatelessWidget {
       decoration: BoxDecoration(
         color: color,
         borderRadius: BorderRadius.circular(16.0),
+        boxShadow: [
+          BoxShadow(
+            color: Theme.of(context).shadowColor,
+            offset: const Offset(2.0, 2.5),
+            blurRadius: 3.0,
+            spreadRadius: 1.0,
+          ),
+        ],
       ),
       child: Row(
         children: [

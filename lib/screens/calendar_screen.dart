@@ -51,6 +51,23 @@ class _CalendarScreenState extends State<CalendarScreen> {
         children: [
           TableCalendar(
             calendarBuilders: CalendarBuilders(
+              selectedBuilder: (ctx, day, focusedDay) {
+                return Container(
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    color:
+                        Theme.of(ctx).colorScheme.secondary.withOpacity(0.75),
+                  ),
+                  child: Center(
+                    child: Text(
+                      day.day.toString(),
+                      style: const TextStyle(
+                        color: Colors.white,
+                      ),
+                    ),
+                  ),
+                );
+              },
               markerBuilder: (ctx, day, focusedDay) {
                 final opacity = postsData.calculateOpacity(day);
                 final colors = postsData.getEmotionsPerDay(day);

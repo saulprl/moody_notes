@@ -224,6 +224,8 @@ class Posts with ChangeNotifier {
     }
   }
 
+  Future<void> updatePost(Post updated) async {}
+
   void deletePost(String id) {
     _items.removeWhere((post) => post.id == id);
     notifyListeners();

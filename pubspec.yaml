@@ -1,5 +1,7 @@
 name: moody_notes
-description: An app that allows you to write about your day in notes and attach emotions to them.
+description: 'An app that allows you to write about your day in notes and attach emotions to them.
+              The app icon is a merge between Notebook icons created by Smashicons and Pen icons 
+              created by Aranagraphics.'
 
 # The following line prevents the package from being accidentally published to
 # pub.dev using `flutter pub publish`. This is preferred for private packages.

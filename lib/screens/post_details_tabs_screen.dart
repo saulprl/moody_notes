@@ -20,6 +20,7 @@ class _PostDetailsTabsScreenState extends State<PostDetailsTabsScreen> {
   var _isInit = false;
   var _selectedScreenIndex = 0;
   String _postDate = '';
+  var _editMode = false;
 
   @override
   void initState() {
@@ -61,6 +62,7 @@ class _PostDetailsTabsScreenState extends State<PostDetailsTabsScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: Theme.of(context).colorScheme.primary,
         title: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
@@ -68,7 +70,12 @@ class _PostDetailsTabsScreenState extends State<PostDetailsTabsScreen> {
             Text(_postDate),
           ],
         ),
-        backgroundColor: Theme.of(context).colorScheme.primary,
+        actions: [
+          IconButton(
+            icon: Icon(_editMode ? Icons.save : Icons.edit),
+            onPressed: () {},
+          ),
+        ],
       ),
       body: _screens[_selectedScreenIndex]['screen'] as Widget,
       bottomNavigationBar: BottomNavigationBar(

@@ -41,140 +41,127 @@ class AboutScreen extends StatelessWidget {
         backgroundColor: Theme.of(context).colorScheme.primary,
       ),
       // drawer: const MoodyDrawer(),
-      body: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Column(
-          children: [
-            Container(
-              padding: const EdgeInsets.all(8.0),
-              child: const Text(
-                'Moody Notes es un proyecto personal originalmente pensado para mantener una especie de diario o seguimiento de situaciones que ocurren en la vida cotidiana en forma de notas, con el añadido de asociarles emociones, por lo que sería particularmente útil para aquellas personas con ansiedad o problemas similares.',
-                style: TextStyle(fontSize: 16.0),
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              Container(
+                padding: const EdgeInsets.all(8.0),
+                child: const Text(
+                  'Moody Notes es un proyecto personal originalmente pensado para mantener una especie de diario o seguimiento de situaciones que ocurren en la vida cotidiana en forma de notas, con el añadido de asociarles emociones, por lo que sería particularmente útil para aquellas personas con ansiedad o problemas similares.',
+                  style: TextStyle(fontSize: 16.0),
+                ),
+                decoration: BoxDecoration(
+                  border: Border.all(color: Colors.grey),
+                  borderRadius: BorderRadius.circular(8.0),
+                ),
               ),
-              decoration: BoxDecoration(
-                border: Border.all(color: Colors.grey),
-                borderRadius: BorderRadius.circular(8.0),
+              const SizedBox(height: 16.0),
+              Container(
+                padding: const EdgeInsets.all(8.0),
+                child: const Text(
+                  'Si encuentras algún error o tienes una sugerencia, puedes contactar al desarrollador de la aplicación por medio de las redes al final de esta pantalla.',
+                  style: TextStyle(fontSize: 16.0),
+                ),
+                decoration: BoxDecoration(
+                  border: Border.all(color: Colors.grey),
+                  borderRadius: BorderRadius.circular(8.0),
+                ),
               ),
-            ),
-            const SizedBox(height: 16.0),
-            Container(
-              padding: const EdgeInsets.all(8.0),
-              child: const Text(
-                'Si encuentras algún error o tienes una sugerencia, puedes contactar al desarrollador de la aplicación por medio de las redes al final de esta pantalla.',
-                style: TextStyle(fontSize: 16.0),
-              ),
-              decoration: BoxDecoration(
-                border: Border.all(color: Colors.grey),
-                borderRadius: BorderRadius.circular(8.0),
-              ),
-            ),
-            const SizedBox(height: 16.0),
-            Container(
-              padding: const EdgeInsets.all(8.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  const Text(
-                    'El ícono de la aplicación es una combinación de:',
-                    style: TextStyle(
-                      fontSize: 16.0,
-                    ),
-                  ),
-                  RichText(
-                    text: TextSpan(
-                      text: 'Notebook icons, creado por Smashicons.',
-                      style: const TextStyle(
-                        fontSize: 16.0,
-                        decoration: TextDecoration.underline,
-                      ),
-                      recognizer: TapGestureRecognizer()
-                        ..onTap = () => _launchUrl(
-                              'https://www.flaticon.com/free-icons/notebook',
-                              context,
-                            ),
-                    ),
-                  ),
-                  RichText(
-                    text: TextSpan(
-                      text: 'Pen icons, creado por Arianagraphics.',
-                      style: const TextStyle(
-                        fontSize: 16.0,
-                        decoration: TextDecoration.underline,
-                      ),
-                      recognizer: TapGestureRecognizer()
-                        ..onTap = () => _launchUrl(
-                              'https://www.flaticon.com/free-icons/pen',
-                              context,
-                            ),
-                    ),
-                  ),
-                ],
-              ),
-              decoration: BoxDecoration(
-                border: Border.all(color: Colors.grey),
-                borderRadius: BorderRadius.circular(8.0),
-              ),
-            ),
-            Expanded(
-              child: Align(
-                alignment: FractionalOffset.bottomCenter,
+              const SizedBox(height: 16.0),
+              Container(
+                padding: const EdgeInsets.all(8.0),
                 child: Column(
-                  mainAxisAlignment: MainAxisAlignment.end,
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Row(
-                      children: [
-                        const Expanded(child: Divider()),
-                        Text('Version $version'),
-                        const Expanded(child: Divider()),
-                      ],
-                    ),
-                    const SizedBox(height: 8.0),
-                    Container(
-                      width: MediaQuery.of(context).size.width * 0.4,
-                      padding: const EdgeInsets.all(8.0),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          GestureDetector(
-                            child: const Icon(FontAwesomeIcons.twitter,
-                                size: 36.0),
-                            onTap: () => _launchUrl(
-                                'https://twitter.com/saulpxrl', context),
-                          ),
-                          GestureDetector(
-                            child:
-                                const Icon(FontAwesomeIcons.github, size: 36.0),
-                            onTap: () => _launchUrl(
-                                'https://github.com/saulprl', context),
-                          ),
-                          GestureDetector(
-                            child: const Icon(FontAwesomeIcons.instagram,
-                                size: 36.0),
-                            onTap: () => _launchUrl(
-                                'https://instagram.com/saulprl', context),
-                          ),
-                        ],
+                    const Text(
+                      'El ícono de la aplicación es una combinación de:',
+                      style: TextStyle(
+                        fontSize: 16.0,
                       ),
-                      decoration: BoxDecoration(
-                        border: Border.all(color: Colors.grey),
-                        borderRadius: BorderRadius.circular(8.0),
+                    ),
+                    RichText(
+                      text: TextSpan(
+                        text: 'Notebook icons, creado por Smashicons.',
+                        style: const TextStyle(
+                          fontSize: 16.0,
+                          decoration: TextDecoration.underline,
+                        ),
+                        recognizer: TapGestureRecognizer()
+                          ..onTap = () => _launchUrl(
+                                'https://www.flaticon.com/free-icons/notebook',
+                                context,
+                              ),
+                      ),
+                    ),
+                    RichText(
+                      text: TextSpan(
+                        text: 'Pen icons, creado por Arianagraphics.',
+                        style: const TextStyle(
+                          fontSize: 16.0,
+                          decoration: TextDecoration.underline,
+                        ),
+                        recognizer: TapGestureRecognizer()
+                          ..onTap = () => _launchUrl(
+                                'https://www.flaticon.com/free-icons/pen',
+                                context,
+                              ),
                       ),
                     ),
                   ],
                 ),
+                decoration: BoxDecoration(
+                  border: Border.all(color: Colors.grey),
+                  borderRadius: BorderRadius.circular(8.0),
+                ),
               ),
-            ),
-            // Column(
-            //   mainAxisAlignment: MainAxisAlignment.end,
-            //   children: [
-            //     Row(
-            //       mainAxisAlignment: MainAxisAlignment.center,
-            //       Container()
-            //     )
-            //   ]
-            // ),
-          ],
+            ],
+          ),
         ),
+      ),
+      bottomNavigationBar: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Row(
+            children: [
+              const Expanded(child: Divider()),
+              Text('Versión $version'),
+              const Expanded(child: Divider()),
+            ],
+          ),
+          const SizedBox(height: 8.0),
+          Container(
+            width: MediaQuery.of(context).size.width * 0.4,
+            padding: const EdgeInsets.all(8.0),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                GestureDetector(
+                  child: const Icon(FontAwesomeIcons.twitter, size: 36.0),
+                  onTap: () =>
+                      _launchUrl('https://twitter.com/saulpxrl', context),
+                ),
+                GestureDetector(
+                  child: const Icon(FontAwesomeIcons.github, size: 36.0),
+                  onTap: () =>
+                      _launchUrl('https://github.com/saulprl', context),
+                ),
+                GestureDetector(
+                  child: const Icon(FontAwesomeIcons.instagram, size: 36.0),
+                  onTap: () =>
+                      _launchUrl('https://instagram.com/saulprl', context),
+                ),
+              ],
+            ),
+            decoration: BoxDecoration(
+              border: Border.all(color: Colors.grey),
+              borderRadius: BorderRadius.circular(8.0),
+            ),
+          ),
+          const SizedBox(height: 8.0),
+        ],
       ),
     );
   }

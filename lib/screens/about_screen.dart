@@ -1,3 +1,4 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -61,6 +62,53 @@ class AboutScreen extends StatelessWidget {
               child: const Text(
                 'Si encuentras algún error o tienes una sugerencia, puedes contactar al desarrollador de la aplicación por medio de las redes al final de esta pantalla.',
                 style: TextStyle(fontSize: 16.0),
+              ),
+              decoration: BoxDecoration(
+                border: Border.all(color: Colors.grey),
+                borderRadius: BorderRadius.circular(8.0),
+              ),
+            ),
+            const SizedBox(height: 16.0),
+            Container(
+              padding: const EdgeInsets.all(8.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const Text(
+                    'El ícono de la aplicación es una combinación de:',
+                    style: TextStyle(
+                      fontSize: 16.0,
+                    ),
+                  ),
+                  RichText(
+                    text: TextSpan(
+                      text: 'Notebook icons, creado por Smashicons.',
+                      style: const TextStyle(
+                        fontSize: 16.0,
+                        decoration: TextDecoration.underline,
+                      ),
+                      recognizer: TapGestureRecognizer()
+                        ..onTap = () => _launchUrl(
+                              'https://www.flaticon.com/free-icons/notebook',
+                              context,
+                            ),
+                    ),
+                  ),
+                  RichText(
+                    text: TextSpan(
+                      text: 'Pen icons, creado por Arianagraphics.',
+                      style: const TextStyle(
+                        fontSize: 16.0,
+                        decoration: TextDecoration.underline,
+                      ),
+                      recognizer: TapGestureRecognizer()
+                        ..onTap = () => _launchUrl(
+                              'https://www.flaticon.com/free-icons/pen',
+                              context,
+                            ),
+                    ),
+                  ),
+                ],
               ),
               decoration: BoxDecoration(
                 border: Border.all(color: Colors.grey),

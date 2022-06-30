@@ -1,4 +1,3 @@
-// import 'dart:io';
 import '../providers/emotion.dart';
 
 class Post {

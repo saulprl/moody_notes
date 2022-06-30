@@ -12,6 +12,7 @@ import './screens/about_screen.dart';
 import './screens/filters_screen.dart';
 import './screens/calendar_screen.dart';
 import './screens/settings_screen.dart';
+import './screens/edit_text_screen.dart';
 import './screens/post_overview_screen.dart';
 import './screens/basic_emotions_screen.dart';
 import './screens/derived_emotions_screen.dart';
@@ -100,6 +101,7 @@ class MyApp extends StatelessWidget {
           routes: {
             PostDetailsTabsScreen.routeName: (ctx) =>
                 const PostDetailsTabsScreen(),
+            EditTextScreen.routeName: (ctx) => const EditTextScreen(),
             BasicEmotionsScreen.routeName: (ctx) => const BasicEmotionsScreen(),
             DerivedEmotionsScreen.routeName: (ctx) =>
                 const DerivedEmotionsScreen(),
@@ -109,7 +111,7 @@ class MyApp extends StatelessWidget {
             CalendarScreen.routeName: (ctx) => const CalendarScreen(),
             SettingsScreen.routeName: (ctx) => const SettingsScreen(),
             AboutScreen.routeName: (ctx) => const AboutScreen(),
-          }, //TODO: Investigate and fix duplicating posts while fetching.
+          },
         ),
       ),
     );

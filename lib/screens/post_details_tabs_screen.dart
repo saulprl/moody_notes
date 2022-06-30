@@ -2,7 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:intl/intl.dart';
 
+import '../models/post.dart';
+
 import '../providers/posts.dart';
+
+import '../screens/edit_text_screen.dart';
+
 import '../widgets/posts/post_details_text.dart';
 import '../widgets/posts/post_details_emotions_list.dart';
 
@@ -20,7 +25,7 @@ class _PostDetailsTabsScreenState extends State<PostDetailsTabsScreen> {
   var _isInit = false;
   var _selectedScreenIndex = 0;
   String _postDate = '';
-  var _editMode = false;
+  late Post _post;
 
   @override
   void initState() {
@@ -31,24 +36,28 @@ class _PostDetailsTabsScreenState extends State<PostDetailsTabsScreen> {
   void didChangeDependencies() {
     super.didChangeDependencies();
     if (!_isInit) {
-      if (ModalRoute.of(context)!.settings.arguments != null) {
-        final post = Provider.of<Posts>(
-          context,
-          listen: false,
-        ).findById(ModalRoute.of(context)!.settings.arguments as String);
-        _screens = [
-          {
-            'screen': PostDetailsText(post),
-            'title': 'Nota',
-          },
-          {
-            'screen': PostDetailsEmotionsList(post.emotions),
-            'title': 'Emociones',
-          },
-        ];
-        _postDate = DateFormat('MMM dd, yyyy', 'es_MX').format(post.date);
-      }
+      _initializeFields();
       _isInit = true;
+    }
+  }
+
+  void _initializeFields() {
+    if (ModalRoute.of(context)!.settings.arguments != null) {
+      _post = Provider.of<Posts>(
+        context,
+        listen: false,
+      ).findById(ModalRoute.of(context)!.settings.arguments as String);
+      _screens = [
+        {
+          'screen': PostDetailsText(_post),
+          'title': 'Nota',
+        },
+        {
+          'screen': PostDetailsEmotionsList(_post.emotions),
+          'title': 'Emociones',
+        },
+      ];
+      _postDate = DateFormat('MMM dd, yyyy', 'es_MX').format(_post.date);
     }
   }
 
@@ -72,8 +81,19 @@ class _PostDetailsTabsScreenState extends State<PostDetailsTabsScreen> {
         ),
         actions: [
           IconButton(
-            icon: Icon(_editMode ? Icons.save : Icons.edit),
-            onPressed: () {},
+            icon: const Icon(Icons.edit),
+            onPressed: () {
+              Navigator.of(context)
+                  .pushNamed(
+                    EditTextScreen.routeName,
+                    arguments: _post,
+                  )
+                  .then(
+                    (_) => setState(() {
+                      _initializeFields();
+                    }),
+                  );
+            },
           ),
         ],
       ),

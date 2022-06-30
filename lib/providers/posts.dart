@@ -224,7 +224,36 @@ class Posts with ChangeNotifier {
     }
   }
 
-  Future<void> updatePost(Post updated) async {}
+  Future<void> updatePost(Post updated) async {
+    final originalIndex = _items.indexWhere((p) => p.id == updated.id);
+    final originalPost = _items.removeAt(originalIndex);
+    _items.insert(originalIndex, updated);
+    notifyListeners();
+
+    try {
+      final appDir = await syspaths.getApplicationDocumentsDirectory();
+      final postToJson = File(path.join(appDir.path, '${updated.id}.json'));
+      final encodedPost = json.encode(updated);
+      await postToJson.writeAsString(encodedPost);
+
+      final insertedId = await DBHelper.insert(
+        'posts',
+        {
+          'post_id': updated.id,
+          'post_path': postToJson.path,
+        },
+      );
+
+      if (insertedId < 0) {
+        throw DBException('Ocurrió un problema al guardar la nota.');
+      }
+    } catch (error) {
+      _items.remove(updated);
+      _items.insert(originalIndex, originalPost);
+      notifyListeners();
+      debugPrint('Sadge error ${error.toString()}');
+    }
+  }
 
   void deletePost(String id) {
     _items.removeWhere((post) => post.id == id);

@@ -12,17 +12,13 @@ class PostDetailsText extends StatefulWidget {
 }
 
 class _PostDetailsTextState extends State<PostDetailsText> {
-  final _controller = TextEditingController();
-
   @override
   void initState() {
     super.initState();
-    _controller.text = widget.selectedPost.text;
   }
 
   @override
   void dispose() {
-    _controller.dispose();
     super.dispose();
   }
 
@@ -36,14 +32,11 @@ class _PostDetailsTextState extends State<PostDetailsText> {
         ),
         child: SingleChildScrollView(
           child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 8.0),
-            child: TextField(
-              minLines: 4,
-              maxLines: 26,
-              readOnly: true,
-              controller: _controller,
+            padding:
+                const EdgeInsets.symmetric(horizontal: 12.0, vertical: 10.0),
+            child: Text(
+              widget.selectedPost.text,
               textAlign: TextAlign.justify,
-              decoration: const InputDecoration(border: InputBorder.none),
               style: const TextStyle(fontSize: 16.0),
             ),
           ),

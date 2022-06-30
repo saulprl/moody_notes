@@ -62,29 +62,31 @@ class _TextAreaState extends State<TextArea> {
     return Column(
       children: [
         Container(
-          padding: const EdgeInsets.all(4.0),
+          padding: const EdgeInsets.symmetric(horizontal: 8.0),
           decoration: BoxDecoration(
             border: Border.all(
               color: _isFocused
                   ? Theme.of(context).colorScheme.primary
-                  : Colors.grey,
+                  : Colors.white,
               width: 1.0,
             ),
+            borderRadius: BorderRadius.circular(8.0),
           ),
           child: TextField(
             focusNode: _focusNode,
             controller: _controller,
+            textAlign: TextAlign.justify,
             decoration: InputDecoration(
-              // label: Text('Escribe algo...'),
               hintText: 'Escribe algo...',
               focusColor: Theme.of(context).colorScheme.primary,
+              border: InputBorder.none,
             ),
             style: const TextStyle(fontSize: 18.0),
             autocorrect: true,
             enableSuggestions: true,
             textCapitalization: TextCapitalization.sentences,
             minLines: 4,
-            maxLines: 7,
+            maxLines: 11,
             keyboardType: TextInputType.multiline,
           ),
         ),

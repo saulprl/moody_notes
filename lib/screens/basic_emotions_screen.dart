@@ -22,6 +22,30 @@ class _BasicEmotionsScreenState extends State<BasicEmotionsScreen> {
     );
   }
 
+  void _save(Emotions emotionsData, BuildContext context) {
+    if (!emotionsData.hasSelected()) {
+      showDialog(
+        context: context,
+        builder: (ctx) {
+          return AlertDialog(
+            title: const Text('Emociones'),
+            content: const Text(
+                'Debes seleccionar al menos una emoción para continuar.'),
+            actions: [
+              TextButton(
+                onPressed: () => Navigator.of(ctx).pop(),
+                child: const Text('OK'),
+              ),
+            ],
+          );
+        },
+      );
+    } else {
+      emotionsData.fetchSelectedEmotions();
+      Navigator.of(context).pop();
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final emotionsData = Provider.of<Emotions>(
@@ -46,27 +70,28 @@ class _BasicEmotionsScreenState extends State<BasicEmotionsScreen> {
             const SizedBox(height: 12.0),
             ElevatedButton(
               onPressed: () {
-                if (!emotionsData.hasSelected()) {
-                  showDialog(
-                    context: context,
-                    builder: (ctx) {
-                      return AlertDialog(
-                        title: const Text('Emociones'),
-                        content: const Text(
-                            'Debes seleccionar al menos una emoción para continuar.'),
-                        actions: [
-                          TextButton(
-                            onPressed: () => Navigator.of(ctx).pop(),
-                            child: const Text('OK'),
-                          ),
-                        ],
-                      );
-                    },
-                  );
-                } else {
-                  emotionsData.fetchSelectedEmotions();
-                  Navigator.of(context).pop();
-                }
+                _save(emotionsData, context);
+                // if (!emotionsData.hasSelected()) {
+                //   showDialog(
+                //     context: context,
+                //     builder: (ctx) {
+                //       return AlertDialog(
+                //         title: const Text('Emociones'),
+                //         content: const Text(
+                //             'Debes seleccionar al menos una emoción para continuar.'),
+                //         actions: [
+                //           TextButton(
+                //             onPressed: () => Navigator.of(ctx).pop(),
+                //             child: const Text('OK'),
+                //           ),
+                //         ],
+                //       );
+                //     },
+                //   );
+                // } else {
+                //   emotionsData.fetchSelectedEmotions();
+                //   Navigator.of(context).pop();
+                // }
               },
               child: const Text('Guardar'),
             ),

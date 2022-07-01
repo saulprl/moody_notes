@@ -4,6 +4,7 @@ import '../widgets/main/text_area.dart';
 import '../widgets/posts/post_list.dart';
 import '../widgets/main/sort_button.dart';
 import '../widgets/main/moody_drawer.dart';
+import '../widgets/main/filters_indicator.dart';
 
 import './filters_screen.dart';
 
@@ -40,9 +41,10 @@ class PostOverviewScreen extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 4.0),
             child: Row(
-              mainAxisAlignment: MainAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: const [
                 SortButton(),
+                FiltersIndicator(),
               ],
             ),
           ),

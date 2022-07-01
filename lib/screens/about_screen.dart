@@ -54,7 +54,9 @@ class AboutScreen extends StatelessWidget {
                   style: TextStyle(fontSize: 16.0),
                 ),
                 decoration: BoxDecoration(
-                  border: Border.all(color: Colors.grey),
+                  border: Border.all(
+                    color: Theme.of(context).colorScheme.onBackground,
+                  ),
                   borderRadius: BorderRadius.circular(8.0),
                 ),
               ),

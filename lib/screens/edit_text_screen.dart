@@ -48,7 +48,9 @@ class EditTextScreen extends StatelessWidget {
         child: Container(
           padding: const EdgeInsets.symmetric(horizontal: 8.0),
           decoration: BoxDecoration(
-            border: Border.all(color: Colors.white),
+            border: Border.all(
+              color: Theme.of(context).colorScheme.onBackground,
+            ),
             borderRadius: BorderRadius.circular(8.0),
           ),
           child: TextField(

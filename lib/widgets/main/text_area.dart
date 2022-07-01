@@ -67,7 +67,7 @@ class _TextAreaState extends State<TextArea> {
             border: Border.all(
               color: _isFocused
                   ? Theme.of(context).colorScheme.primary
-                  : Colors.white,
+                  : Theme.of(context).colorScheme.onBackground,
               width: 1.0,
             ),
             borderRadius: BorderRadius.circular(8.0),

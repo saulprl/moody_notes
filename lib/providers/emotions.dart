@@ -553,6 +553,7 @@ class Emotions with ChangeNotifier {
   }
 
   void fetchSelectedEmotions() {
+    _selectedEmotions.clear();
     for (Emotion emotion in _emotions) {
       if (emotion.isSelected) {
         Emotion emotionCopy = Emotion(
@@ -562,6 +563,36 @@ class Emotions with ChangeNotifier {
         );
         emotionCopy.derivedEmotions = _fetchSelectedDerivedEmotions(emotion);
         _selectedEmotions.add(emotionCopy);
+      }
+    }
+    notifyListeners();
+  }
+
+  void selectFromList(List<Emotion> selected) {
+    for (Emotion e in selected) {
+      setSelectedByName(e, e.isSelected);
+      if (e.derivedEmotions != null) {
+        selectFromList(e.derivedEmotions!);
+      }
+    }
+  }
+
+  void setSelectedByName(Emotion selected, bool value) {
+    for (Emotion e in _emotions) {
+      if (e.name == selected.name) {
+        setSelected(e, value);
+      } else {
+        for (Emotion d in e.derivedEmotions!) {
+          if (d.name == selected.name) {
+            setSelected(d, value);
+          } else {
+            for (Emotion s in d.derivedEmotions!) {
+              if (s.name == selected.name) {
+                setSelected(s, value);
+              }
+            }
+          }
+        }
       }
     }
   }

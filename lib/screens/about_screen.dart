@@ -87,9 +87,10 @@ class AboutScreen extends StatelessWidget {
                     RichText(
                       text: TextSpan(
                         text: 'Notebook icons, creado por Smashicons.',
-                        style: const TextStyle(
+                        style: TextStyle(
                           fontSize: 16.0,
                           decoration: TextDecoration.underline,
+                          color: Theme.of(context).colorScheme.onBackground,
                         ),
                         recognizer: TapGestureRecognizer()
                           ..onTap = () => _launchUrl(
@@ -101,9 +102,10 @@ class AboutScreen extends StatelessWidget {
                     RichText(
                       text: TextSpan(
                         text: 'Pen icons, creado por Arianagraphics.',
-                        style: const TextStyle(
+                        style: TextStyle(
                           fontSize: 16.0,
                           decoration: TextDecoration.underline,
+                          color: Theme.of(context).colorScheme.onBackground,
                         ),
                         recognizer: TapGestureRecognizer()
                           ..onTap = () => _launchUrl(

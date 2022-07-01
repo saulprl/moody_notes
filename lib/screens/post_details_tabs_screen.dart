@@ -5,8 +5,10 @@ import 'package:intl/intl.dart';
 import '../models/post.dart';
 
 import '../providers/posts.dart';
+import '../providers/emotions.dart';
 
 import '../screens/edit_text_screen.dart';
+import '../screens/basic_emotions_screen.dart';
 
 import '../widgets/posts/post_details_text.dart';
 import '../widgets/posts/post_details_emotions_list.dart';
@@ -21,6 +23,8 @@ class PostDetailsTabsScreen extends StatefulWidget {
 }
 
 class _PostDetailsTabsScreenState extends State<PostDetailsTabsScreen> {
+  late Posts _postsData;
+  late Emotions _emotionsData;
   late List<Map<String, dynamic>> _screens;
   var _isInit = false;
   var _selectedScreenIndex = 0;
@@ -36,6 +40,8 @@ class _PostDetailsTabsScreenState extends State<PostDetailsTabsScreen> {
   void didChangeDependencies() {
     super.didChangeDependencies();
     if (!_isInit) {
+      _postsData = Provider.of<Posts>(context, listen: false);
+      _emotionsData = Provider.of<Emotions>(context, listen: false);
       _initializeFields();
       _isInit = true;
     }
@@ -43,17 +49,15 @@ class _PostDetailsTabsScreenState extends State<PostDetailsTabsScreen> {
 
   void _initializeFields() {
     if (ModalRoute.of(context)!.settings.arguments != null) {
-      _post = Provider.of<Posts>(
-        context,
-        listen: false,
-      ).findById(ModalRoute.of(context)!.settings.arguments as String);
+      _post = _postsData
+          .findById(ModalRoute.of(context)!.settings.arguments as String);
       _screens = [
         {
           'screen': PostDetailsText(_post),
           'title': 'Nota',
         },
         {
-          'screen': PostDetailsEmotionsList(_post.emotions),
+          'screen': PostDetailsEmotionsList(_post),
           'title': 'Emociones',
         },
       ];
@@ -82,18 +86,40 @@ class _PostDetailsTabsScreenState extends State<PostDetailsTabsScreen> {
         actions: [
           IconButton(
             icon: const Icon(Icons.edit),
-            onPressed: () {
-              Navigator.of(context)
-                  .pushNamed(
-                    EditTextScreen.routeName,
-                    arguments: _post,
-                  )
-                  .then(
-                    (_) => setState(() {
-                      _initializeFields();
-                    }),
-                  );
-            },
+            onPressed: _selectedScreenIndex == 0
+                ? () {
+                    Navigator.of(context)
+                        .pushNamed(
+                          EditTextScreen.routeName,
+                          arguments: _post,
+                        )
+                        .then(
+                          (_) => setState(() {
+                            _initializeFields();
+                          }),
+                        );
+                  }
+                : () {
+                    _emotionsData.selectFromList(_post.emotions);
+                    Navigator.of(context)
+                        .pushNamed(BasicEmotionsScreen.routeName)
+                        .then(
+                      (_) async {
+                        // Función que espera a que se terminen de editar las emociones.
+                        await _postsData.updatePost(
+                          Post(
+                            id: _post.id,
+                            text: _post.text,
+                            emotions: _emotionsData.selectedEmotions,
+                            date: _post.date,
+                          ),
+                        ); // La app espera a que los cambios terminen de guardarse.
+                        setState(() {
+                          _initializeFields(); // Se actualiza la interfaz con los nuevos cambios.
+                        });
+                      },
+                    );
+                  },
           ),
         ],
       ),

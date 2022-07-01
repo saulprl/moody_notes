@@ -32,8 +32,9 @@ class MyApp extends StatelessWidget {
       primary: Colors.pink[400]!,
       secondary: Colors.purple[300]!,
       background: Colors.grey[900]!,
-      surface: Colors.grey[800]!,
       onPrimary: Colors.white,
+      surface: Colors.grey[800]!,
+      onBackground: Colors.white,
     );
     var lightScheme = ColorScheme.light(
       primary: Colors.pink[400]!,

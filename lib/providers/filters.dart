@@ -16,6 +16,7 @@ class Filters with ChangeNotifier {
 
   void toggleFilter(String name, bool value) {
     _filters.firstWhere((f) => f.emotion == name).setValue(value);
+    notifyListeners();
   }
 
   void clear() {

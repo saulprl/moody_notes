@@ -102,23 +102,38 @@ class _PostDetailsTabsScreenState extends State<PostDetailsTabsScreen> {
                 : () {
                     _emotionsData.selectFromList(_post.emotions);
                     Navigator.of(context)
-                        .pushNamed(BasicEmotionsScreen.routeName)
-                        .then(
-                      (_) async {
-                        // Función que espera a que se terminen de editar las emociones.
-                        await _postsData.updatePost(
-                          Post(
-                            id: _post.id,
-                            text: _post.text,
-                            emotions: _emotionsData.selectedEmotions,
-                            date: _post.date,
-                          ),
-                        ); // La app espera a que los cambios terminen de guardarse.
+                        .push(
+                      MaterialPageRoute(
+                        builder: (ctx) =>
+                            const BasicEmotionsScreen(editMode: true),
+                        settings: RouteSettings(arguments: _post),
+                      ),
+                    )
+                        .then((value) {
+                      if (value != null && value) {
                         setState(() {
-                          _initializeFields(); // Se actualiza la interfaz con los nuevos cambios.
+                          _initializeFields();
                         });
-                      },
-                    );
+                      }
+                    });
+                    // Navigator.of(context)
+                    //     .pushNamed(BasicEmotionsScreen.routeName)
+                    //     .then(
+                    //   (_) async {
+                    //     // Función que espera a que se terminen de editar las emociones.
+                    //     await _postsData.updatePost(
+                    //       Post(
+                    //         id: _post.id,
+                    //         text: _post.text,
+                    //         emotions: _emotionsData.selectedEmotions,
+                    //         date: _post.date,
+                    //       ),
+                    //     ); // La app espera a que los cambios terminen de guardarse.
+                    //     setState(() {
+                    //       _initializeFields(); // Se actualiza la interfaz con los nuevos cambios.
+                    //     });
+                    //   },
+                    // );
                   },
           ),
         ],

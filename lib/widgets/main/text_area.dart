@@ -1,14 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:uuid/uuid.dart';
 
-import '../../providers/posts.dart';
 import '../../providers/emotions.dart';
 import '../../providers/post_date_preferences.dart';
 
 import '../../screens/basic_emotions_screen.dart';
-
-import '../../models/post.dart';
 
 class TextArea extends StatefulWidget {
   const TextArea({Key? key}) : super(key: key);
@@ -101,6 +97,8 @@ class _TextAreaState extends State<TextArea> {
                   : () {
                       _controller.text = '';
                       _focusNode.unfocus();
+                      Provider.of<Emotions>(context, listen: false)
+                          .resetSelection();
                     },
             ),
             Consumer<PostDatePreferences>(
@@ -109,44 +107,45 @@ class _TextAreaState extends State<TextArea> {
                 onPressed: _isEmpty
                     ? null
                     : () async {
+                        // _focusNode.unfocus();
+                        // var uuid = const Uuid();
                         _focusNode.unfocus();
-                        var uuid = const Uuid();
-                        await Navigator.of(context)
-                            .pushNamed(BasicEmotionsScreen.routeName);
-
-                        final emotionList = Provider.of<Emotions>(
-                          context,
-                          listen: false,
-                        ).selectedEmotions;
-
-                        if (emotionList.isNotEmpty) {
-                          var date = datePref.askForDate
-                              ? await showDatePicker(
-                                  context: context,
-                                  initialDate: DateTime.now(),
-                                  firstDate: DateTime.utc(2020, 8, 14),
-                                  lastDate: DateTime.now()
-                                      .add(const Duration(days: 365)),
-                                )
-                              : DateTime.now();
-                          date ??= DateTime.now();
-                          await Provider.of<Posts>(
-                            context,
-                            listen: false,
-                          ).addPost(
-                            Post(
-                              id: uuid.v1(),
-                              text: _controller.text,
-                              date: date,
-                              emotions: emotionList,
+                        Navigator.of(ctx)
+                            .push<bool?>(
+                          MaterialPageRoute(
+                            builder: (ct) =>
+                                const BasicEmotionsScreen(editMode: false),
+                            settings: RouteSettings(
+                              arguments: _controller.text,
                             ),
-                          );
-                          Provider.of<Emotions>(
-                            context,
-                            listen: false,
-                          ).resetSelection();
-                          _controller.text = '';
-                        }
+                          ),
+                        )
+                            .then(
+                          (value) {
+                            if (value != null && value) {
+                              _controller.text = '';
+                              ScaffoldMessenger.of(ctx).showSnackBar(
+                                const SnackBar(
+                                  content: Text(
+                                    'La nota se guardó correctamente.',
+                                    style: TextStyle(color: Colors.white),
+                                    textAlign: TextAlign.center,
+                                  ),
+                                  backgroundColor: Colors.black,
+                                ),
+                              );
+                            } else if (value != null && !value) {
+                              ScaffoldMessenger.of(ctx).showSnackBar(
+                                SnackBar(
+                                  content: const Text(
+                                      'Ocurrió un error al guardar la nota.'),
+                                  backgroundColor:
+                                      Theme.of(ctx).colorScheme.error,
+                                ),
+                              );
+                            }
+                          },
+                        );
                       },
               ),
             ),

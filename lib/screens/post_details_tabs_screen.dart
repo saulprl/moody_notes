@@ -84,58 +84,168 @@ class _PostDetailsTabsScreenState extends State<PostDetailsTabsScreen> {
           ],
         ),
         actions: [
-          IconButton(
-            icon: const Icon(Icons.edit),
-            onPressed: _selectedScreenIndex == 0
-                ? () {
-                    Navigator.of(context)
-                        .pushNamed(
-                          EditTextScreen.routeName,
-                          arguments: _post,
-                        )
-                        .then(
-                          (_) => setState(() {
-                            _initializeFields();
-                          }),
-                        );
-                  }
-                : () {
-                    _emotionsData.selectFromList(_post.emotions);
-                    Navigator.of(context)
-                        .push(
-                      MaterialPageRoute(
-                        builder: (ctx) =>
-                            const BasicEmotionsScreen(editMode: true),
-                        settings: RouteSettings(arguments: _post),
+          PopupMenuButton(
+            itemBuilder: (ctx) {
+              return [
+                PopupMenuItem<int>(
+                  value: 0,
+                  child: Row(
+                    children: [
+                      const Icon(
+                        Icons.edit,
+                        color: Colors.amber,
                       ),
-                    )
-                        .then((value) {
-                      if (value != null && value) {
-                        setState(() {
-                          _initializeFields();
-                        });
+                      const SizedBox(width: 8.0),
+                      Text(
+                        'Editar ${_selectedScreenIndex == 0 ? 'texto' : 'emociones'}',
+                      ),
+                    ],
+                  ),
+                ),
+                PopupMenuItem<int>(
+                  value: 1,
+                  child: Row(
+                    children: [
+                      Icon(
+                        Icons.delete_forever,
+                        color: Theme.of(context).colorScheme.error,
+                      ),
+                      const SizedBox(width: 8.0),
+                      const Text(
+                        'Eliminar nota',
+                      ),
+                    ],
+                  ),
+                ),
+              ];
+            },
+            onSelected: (value) {
+              switch (value) {
+                case 0:
+                  switch (_selectedScreenIndex) {
+                    case 0:
+                      Navigator.of(context)
+                          .pushNamed(
+                            EditTextScreen.routeName,
+                            arguments: _post,
+                          )
+                          .then(
+                            (_) => setState(() {
+                              _initializeFields();
+                            }),
+                          );
+                      break;
+                    case 1:
+                      _emotionsData.selectFromList(_post.emotions);
+                      Navigator.of(context)
+                          .push(
+                        MaterialPageRoute(
+                          builder: (ctx) =>
+                              const BasicEmotionsScreen(editMode: true),
+                          settings: RouteSettings(arguments: _post),
+                        ),
+                      )
+                          .then((value) {
+                        if (value != null && value) {
+                          setState(() {
+                            _initializeFields();
+                          });
+                        }
+                      });
+                      break;
+                  }
+                  break;
+                case 1:
+                  showDialog<bool>(
+                    context: context,
+                    barrierDismissible: false,
+                    builder: (ctx) => AlertDialog(
+                      title: const Text('Eliminar nota'),
+                      content: const Text(
+                        '¿Deseas eliminar esta nota? No podrás recuperarla.',
+                      ),
+                      actions: [
+                        TextButton(
+                          child: Text(
+                            'Cancelar',
+                            style: TextStyle(
+                              color: Theme.of(ctx).colorScheme.secondary,
+                            ),
+                          ),
+                          onPressed: () => Navigator.of(ctx).pop(false),
+                        ),
+                        TextButton(
+                          child: const Text(
+                            'Eliminar',
+                            style: TextStyle(color: Colors.red),
+                          ),
+                          onPressed: () => Navigator.of(ctx).pop(true),
+                        ),
+                      ],
+                    ),
+                  ).then((result) async {
+                    if (result!) {
+                      try {
+                        await _postsData.deletePost(_post);
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(
+                            content: Text(
+                              'La nota ha sido eliminada.',
+                              textAlign: TextAlign.center,
+                            ),
+                          ),
+                        );
+                        Navigator.of(context).pop();
+                      } catch (error) {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(
+                            content: Text(
+                              error.toString(),
+                              textAlign: TextAlign.center,
+                            ),
+                          ),
+                        );
                       }
-                    });
-                    // Navigator.of(context)
-                    //     .pushNamed(BasicEmotionsScreen.routeName)
-                    //     .then(
-                    //   (_) async {
-                    //     // Función que espera a que se terminen de editar las emociones.
-                    //     await _postsData.updatePost(
-                    //       Post(
-                    //         id: _post.id,
-                    //         text: _post.text,
-                    //         emotions: _emotionsData.selectedEmotions,
-                    //         date: _post.date,
-                    //       ),
-                    //     ); // La app espera a que los cambios terminen de guardarse.
-                    //     setState(() {
-                    //       _initializeFields(); // Se actualiza la interfaz con los nuevos cambios.
-                    //     });
-                    //   },
-                    // );
-                  },
+                    }
+                  });
+                  break;
+              }
+            },
           ),
+          // IconButton(
+          //   icon: const Icon(Icons.edit),
+          //   onPressed: _selectedScreenIndex == 0
+          //       ? () {
+          //           Navigator.of(context)
+          //               .pushNamed(
+          //                 EditTextScreen.routeName,
+          //                 arguments: _post,
+          //               )
+          //               .then(
+          //                 (_) => setState(() {
+          //                   _initializeFields();
+          //                 }),
+          //               );
+          //         }
+          //       : () {
+          //           _emotionsData.selectFromList(_post.emotions);
+          //           Navigator.of(context)
+          //               .push(
+          //             MaterialPageRoute(
+          //               builder: (ctx) =>
+          //                   const BasicEmotionsScreen(editMode: true),
+          //               settings: RouteSettings(arguments: _post),
+          //             ),
+          //           )
+          //               .then((value) {
+          //             if (value != null && value) {
+          //               setState(() {
+          //                 _initializeFields();
+          //               });
+          //             }
+          //           });
+          //         },
+          // ),
         ],
       ),
       body: _screens[_selectedScreenIndex]['screen'] as Widget,

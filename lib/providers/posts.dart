@@ -258,9 +258,25 @@ class Posts with ChangeNotifier {
     }
   }
 
-  void deletePost(String id) {
-    _items.removeWhere((post) => post.id == id);
+  Future<void> deletePost(Post deleted) async {
+    _items.remove(deleted);
     notifyListeners();
+
+    try {
+      final appDir = await syspaths.getApplicationDocumentsDirectory();
+      final postFile = File(path.join(appDir.path, '${deleted.id}.json'));
+      await postFile.delete();
+
+      final deletedId = await DBHelper.delete('posts', deleted.id);
+
+      if (deletedId < 1) {
+        throw DBException('Ocurrió un error al elimintar la nota.');
+      }
+    } catch (error) {
+      await addPost(deleted);
+      notifyListeners();
+      rethrow;
+    }
   }
 
   Future<void> filterPosts(List<Filter> filters) async {

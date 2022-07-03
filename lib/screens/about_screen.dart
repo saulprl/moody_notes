@@ -1,9 +1,7 @@
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/gestures.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-
-import '../widgets/main/moody_drawer.dart';
 
 class AboutScreen extends StatelessWidget {
   static const routeName = '/about-screen';

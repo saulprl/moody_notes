@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../widgets/main/moody_drawer.dart';
 import '../providers/post_date_preferences.dart';
 
 class SettingsScreen extends StatelessWidget {

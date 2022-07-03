@@ -15,14 +15,30 @@ class EditTextScreen extends StatelessWidget {
     Post post,
     String text,
   ) async {
-    final updatedPost = Post(
-      id: post.id,
-      text: text,
-      date: post.date,
-      emotions: post.emotions,
-    );
-    await Provider.of<Posts>(context, listen: false).updatePost(updatedPost);
-    Navigator.of(context).pop();
+    if (text.isEmpty) {
+      await showDialog(
+        context: context,
+        builder: (ctx) => AlertDialog(
+          title: const Text('Error al editar'),
+          content: const Text('El texto de la nota no puede estar vacío.'),
+          actions: [
+            TextButton(
+              child: const Text('Ok'),
+              onPressed: () => Navigator.of(ctx).pop(),
+            ),
+          ],
+        ),
+      );
+    } else {
+      final updatedPost = Post(
+        id: post.id,
+        text: text,
+        date: post.date,
+        emotions: post.emotions,
+      );
+      await Provider.of<Posts>(context, listen: false).updatePost(updatedPost);
+      Navigator.of(context).pop();
+    }
   }
 
   @override
@@ -58,8 +74,10 @@ class EditTextScreen extends StatelessWidget {
             minLines: 4,
             maxLines: 150,
             textAlign: TextAlign.justify,
+            textCapitalization: TextCapitalization.sentences,
             decoration: const InputDecoration(
               border: InputBorder.none,
+              hintText: 'Escribe algo...',
             ),
           ),
         ),
@@ -69,7 +87,9 @@ class EditTextScreen extends StatelessWidget {
         children: [
           TextButton(
             child: const Text('Borrar'),
-            onPressed: () {},
+            onPressed: () {
+              _controller.text = '';
+            },
           ),
           ElevatedButton(
             child: const Text('Guardar'),

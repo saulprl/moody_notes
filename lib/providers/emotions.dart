@@ -570,25 +570,31 @@ class Emotions with ChangeNotifier {
 
   void selectFromList(List<Emotion> selected) {
     for (Emotion e in selected) {
-      setSelectedByName(e, e.isSelected);
       if (e.derivedEmotions != null) {
         selectFromList(e.derivedEmotions!);
+      } else {
+        setSelectedByName(e);
       }
     }
   }
 
-  void setSelectedByName(Emotion selected, bool value) {
+  void setSelectedByName(Emotion selected) {
     for (Emotion e in _emotions) {
-      if (e.name == selected.name) {
-        setSelected(e, value);
-      } else {
+      if (e.name == selected.name && e.color.value == selected.color.value) {
+        _selectParents(e);
+        return;
+      } else if (e.toString().contains(selected.name)) {
         for (Emotion d in e.derivedEmotions!) {
-          if (d.name == selected.name) {
-            setSelected(d, value);
-          } else {
+          if (d.name == selected.name &&
+              d.color.value == selected.color.value) {
+            _selectParents(d);
+            return;
+          } else if (d.toString().contains(selected.name)) {
             for (Emotion s in d.derivedEmotions!) {
-              if (s.name == selected.name) {
-                setSelected(s, value);
+              if (s.name == selected.name &&
+                  s.color.value == selected.color.value) {
+                _selectParents(s);
+                return;
               }
             }
           }

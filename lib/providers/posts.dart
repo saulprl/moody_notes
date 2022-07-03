@@ -12,6 +12,7 @@ import '../models/post.dart';
 
 class Posts with ChangeNotifier {
   int? _highestPostsPerDay;
+  int sortMode = 1;
   final List<Post> _items = [
     // Post(
     //   id: DateTime(2022, 5, 17).toIso8601String(),
@@ -187,7 +188,7 @@ class Posts with ChangeNotifier {
     sortPosts();
   }
 
-  void sortPosts([int sortMode = 1]) {
+  void sortPosts() {
     _items.sort((a, b) {
       return sortMode == 0
           ? a.date.compareTo(b.date)
@@ -220,7 +221,9 @@ class Posts with ChangeNotifier {
     } catch (error) {
       _items.remove(newPost);
       notifyListeners();
-      debugPrint('Sadge error ${error.toString()}');
+      rethrow;
+    } finally {
+      sortPosts();
     }
   }
 

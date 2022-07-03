@@ -33,15 +33,19 @@ class MyApp extends StatelessWidget {
       background: Colors.grey[900]!,
       onPrimary: Colors.white,
       surface: Colors.grey[800]!,
+      // onSurface: Colors.grey[600]!,
       onBackground: Colors.white,
+      error: Colors.red,
     );
     var lightScheme = ColorScheme.light(
       primary: Colors.pink[400]!,
       secondary: Colors.deepPurple,
+      background: Colors.white,
       onPrimary: Colors.white,
-      surface: Colors.white,
-      onSurface: Colors.grey,
+      surface: Colors.grey[200]!,
+      // onSurface: Colors.black,
       onBackground: Colors.grey[800]!,
+      error: Colors.red,
     );
 
     return MultiProvider(
@@ -66,6 +70,9 @@ class MyApp extends StatelessWidget {
         builder: (context, themeProvider, ch) => MaterialApp(
           title: 'Moody Notes',
           theme: ThemeData(
+            scaffoldBackgroundColor: themeProvider.isDark
+                ? darkScheme.background
+                : lightScheme.background,
             colorScheme: themeProvider.isDark ? darkScheme : lightScheme,
             appBarTheme: AppBarTheme(
               elevation: 3.0,

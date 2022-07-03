@@ -14,7 +14,6 @@ import './screens/calendar_screen.dart';
 import './screens/settings_screen.dart';
 import './screens/edit_text_screen.dart';
 import './screens/post_overview_screen.dart';
-import './screens/basic_emotions_screen.dart';
 import './screens/derived_emotions_screen.dart';
 import './screens/post_details_tabs_screen.dart';
 import './screens/specific_emotions_screen.dart';
@@ -103,7 +102,6 @@ class MyApp extends StatelessWidget {
             PostDetailsTabsScreen.routeName: (ctx) =>
                 const PostDetailsTabsScreen(),
             EditTextScreen.routeName: (ctx) => const EditTextScreen(),
-            BasicEmotionsScreen.routeName: (ctx) => const BasicEmotionsScreen(),
             DerivedEmotionsScreen.routeName: (ctx) =>
                 const DerivedEmotionsScreen(),
             SpecificEmotionsScreen.routeName: (ctx) =>

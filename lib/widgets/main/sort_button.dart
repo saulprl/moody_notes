@@ -39,6 +39,8 @@ class _SortButtonState extends State<SortButton> {
 
   @override
   Widget build(BuildContext context) {
+    final postsData = Provider.of<Posts>(context, listen: false);
+    postsData.sortMode = _sortMode.index;
     return OutlinedButton(
       child: Text(
         _buttonText,
@@ -46,34 +48,9 @@ class _SortButtonState extends State<SortButton> {
       ),
       onPressed: () {
         _switchButtonText();
-        Provider.of<Posts>(context, listen: false).sortPosts(_sortMode.index);
+        postsData.sortMode = _sortMode.index;
+        postsData.sortPosts();
       },
     );
-    // TextButton(
-    //   child: Text(
-    //     _buttonText,
-    //     style: const TextStyle(fontSize: 12.0),
-    //   ),
-    //   style: ButtonStyle(
-    //     splashFactory: NoSplash.splashFactory,
-    //     side: MaterialStateProperty.all<BorderSide>(
-    //       const BorderSide(
-    //         color: Colors.black,
-    //         style: BorderStyle.solid,
-    //       ),
-    //     ),
-    //     shape: MaterialStateProperty.all<OutlinedBorder>(
-    //       RoundedRectangleBorder(
-    //         borderRadius: BorderRadius.circular(24.0),
-    //       ),
-    //     ),
-    //     visualDensity: VisualDensity.compact,
-    //   ),
-    //   onPressed: () {
-    //     _switchButtonText();
-
-    //     Provider.of<Posts>(context, listen: false).sortPosts(_sortMode.index);
-    //   },
-    // );
   }
 }

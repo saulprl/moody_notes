@@ -212,45 +212,11 @@ class _PostDetailsTabsScreenState extends State<PostDetailsTabsScreen> {
               }
             },
           ),
-          // IconButton(
-          //   icon: const Icon(Icons.edit),
-          //   onPressed: _selectedScreenIndex == 0
-          //       ? () {
-          //           Navigator.of(context)
-          //               .pushNamed(
-          //                 EditTextScreen.routeName,
-          //                 arguments: _post,
-          //               )
-          //               .then(
-          //                 (_) => setState(() {
-          //                   _initializeFields();
-          //                 }),
-          //               );
-          //         }
-          //       : () {
-          //           _emotionsData.selectFromList(_post.emotions);
-          //           Navigator.of(context)
-          //               .push(
-          //             MaterialPageRoute(
-          //               builder: (ctx) =>
-          //                   const BasicEmotionsScreen(editMode: true),
-          //               settings: RouteSettings(arguments: _post),
-          //             ),
-          //           )
-          //               .then((value) {
-          //             if (value != null && value) {
-          //               setState(() {
-          //                 _initializeFields();
-          //               });
-          //             }
-          //           });
-          //         },
-          // ),
         ],
       ),
       body: _screens[_selectedScreenIndex]['screen'] as Widget,
       bottomNavigationBar: BottomNavigationBar(
-        backgroundColor: Theme.of(context).colorScheme.background,
+        backgroundColor: Theme.of(context).colorScheme.surfaceVariant,
         onTap: _selectScreen,
         unselectedItemColor: Colors.grey,
         selectedItemColor: Theme.of(context).colorScheme.secondary,

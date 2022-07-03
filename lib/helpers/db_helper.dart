@@ -35,7 +35,7 @@ class DBHelper {
     return await db.update(
       table,
       data,
-      where: 'id = ?',
+      where: 'post_id = ?',
       whereArgs: [data['id']],
     );
   }
@@ -44,7 +44,7 @@ class DBHelper {
     final db = await DBHelper.database();
     return await db.delete(
       table,
-      where: 'id = ?',
+      where: 'post_id = ?',
       whereArgs: [id],
     );
   }

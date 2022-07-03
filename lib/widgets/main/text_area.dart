@@ -60,6 +60,7 @@ class _TextAreaState extends State<TextArea> {
         Container(
           padding: const EdgeInsets.symmetric(horizontal: 8.0),
           decoration: BoxDecoration(
+            color: Theme.of(context).colorScheme.surface,
             border: Border.all(
               color: _isFocused
                   ? Theme.of(context).colorScheme.primary
